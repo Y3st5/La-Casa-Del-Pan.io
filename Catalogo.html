@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Casa Del Pan</title>
+    <link rel="stylesheet" href="Catalogo.css">
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="Inicio.html" class="logo">
+                    <div class="logo-icon"></div>
+                    <h1>La Casa Del Pan</h1>
+                </a>
+                <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
+                    <span class="menu-bar"></span>
+                    <span class="menu-bar"></span>
+                    <span class="menu-bar"></span>
+                </button>
+                <nav id="mainNav">
+                    <a href="Inicio.html">Inicio</a>
+                    <a href="catalogo.html" class="active">Catálogo</a>
+                    <a href="Inicio.html#nosotros">Nosotros</a>
+                    <a href="Inicio.html#contacto">Contacto</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>Nuestro Catálogo</h2>
+            <p>Descubre toda nuestra variedad de productos artesanales, desde panes tradicionales hasta deliciosos postres</p>
+        </div>
+    </section>
+
+    <!-- Filters -->
+    <section class="filters">
+        <div class="container">
+            <div class="filters-content">
+                <button class="filter-btn active" data-category="todos">Todos</button>
+                <button class="filter-btn" data-category="panes">Panes</button>
+                <button class="filter-btn" data-category="bolleria">Bollería</button>
+                <button class="filter-btn" data-category="pasteles">Pasteles</button>
+                <button class="filter-btn" data-category="empanadas">Empanadas</button>
+                <button class="filter-btn" data-category="bebidas">Bebidas</button>
+                
+                <div class="search-box">
+                    <div class="search-icon"></div>
+                    <input type="text" id="searchInput" placeholder="Buscar productos...">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products Section -->
+    <section class="products-section">
+        <div class="container">
+            <!-- Panes Artesanales -->
+            <div class="category-section" data-category="panes">
+                <div class="category-header">
+                    <div class="category-icon"></div>
+                    <div>
+                        <h3 class="category-title">Panes Artesanales</h3>
+                    </div>
+                    <div class="category-description">Horneados diariamente con ingredientes naturales</div>
+                </div>
+                
+                <div class="products-grid">
+                    <div class="product-card" data-category="panes">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1549931319-a545dcf3bc73?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')">
+                            <span class="product-badge popular">Popular</span>
+                        </div>
+                        <div class="product-content">
+                            <div class="product-category">Panes</div>
+                            <h4 class="product-title">Pan Frances</h4>
+                            <p class="product-description">Pan tradicional con corteza crujiente y miga esponjosa, horneado en horno de leña con masa madre natural.</p>
+                            <div class="product-details">
+                                <div class="product-price">$2.50</div>
+                                <div class="product-rating">
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <span class="rating-text">(4.9)</span>
+                                </div>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn btn-primary add-to-cart" data-id="1" data-name="Pan Frances" data-price="2.50" data-image="https://images.unsplash.com/photo-1549931319-a545dcf3bc73?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80">
+                                    <div class="btn-icon"></div>
+                                    Agregar al Carrito
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="panes">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1519864600265-abb23847ef2c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')">
+                            <span class="product-badge popular">Popular</span>
+                        </div>
+                        <div class="product-content">
+                            <div class="product-category">Panes</div>
+                            <h4 class="product-title">Pan Ciabatta</h4>
+                            <p class="product-description">Pan italiano de corteza fina y miga alveolada, ideal para sándwiches y bruschettas.</p>
+                            <div class="product-details">
+                                <div class="product-price">$2.80</div>
+                                <div class="product-rating">
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star empty"></div>
+                                    <span class="rating-text">(4.7)</span>
+                                </div>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn btn-primary add-to-cart" data-id="2" data-name="Pan Ciabatta" data-price="2.80" data-image="https://images.unsplash.com/photo-1519864600265-abb23847ef2c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80">
+                                    <div class="btn-icon"></div>
+                                    Agregar al Carrito
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="panes">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1586444248902-2f64eddc13df?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-category">Panes</div>
+                            <h4 class="product-title">Pan Baguetino</h4>
+                            <p class="product-description">Auténtica baguette con corteza dorada y miga alveolada, perfecta para acompañar cualquier comida.</p>
+                            <div class="product-details">
+                                <div class="product-price">$2.00</div>
+                                <div class="product-rating">
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star empty"></div>
+                                    <span class="rating-text">(4.7)</span>
+                                </div>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn btn-primary add-to-cart" data-id="3" data-name="Baguette Francesa" data-price="2.00" data-image="https://images.unsplash.com/photo-1586444248902-2f64eddc13df?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80">
+                                    <div class="btn-icon"></div>
+                                    Agregar al Carrito
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="panes">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')">
+                            <span class="product-badge new">Nuevo</span>
+                        </div>
+                        <div class="product-content">
+                            <div class="product-category">Panes</div>
+                            <h4 class="product-title">Pan Integral  </h4>
+                            <p class="product-description">Pan integral con mezcla de semillas de girasol, sésamo y chía. Rico en fibra y nutrientes.</p>
+                            <div class="product-details">
+                                <div class="product-price">$3.00</div>
+                                <div class="product-rating">
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <span class="rating-text">(4.8)</span>
+                                </div>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn btn-primary add-to-cart" data-id="4" data-name="Pan Integral" data-price="3.00" data-image="https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80">
+                                    <div class="btn-icon"></div>
+                                    Agregar al Carrito
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                                        <div class="product-card" data-category="panes">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')">
+                            <span class="product-badge new">Nuevo</span>
+                        </div>
+                        <div class="product-content">
+                            <div class="product-category">Panes</div>
+                            <h4 class="product-title">Pan De Camote</h4>
+                            <p class="product-description">Pan integral con mezcla de semillas de girasol, sésamo y chía. Rico en fibra y nutrientes.</p>
+                            <div class="product-details">
+                                <div class="product-price">$3.00</div>
+                                <div class="product-rating">
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <span class="rating-text">(4.8)</span>
+                                </div>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn btn-primary add-to-cart" data-id="5" data-name="Pan De Camote" data-price="3.00" data-image="https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80">
+                                    <div class="btn-icon"></div>
+                                    Agregar al Carrito
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                                        <div class="product-card" data-category="panes">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')">
+                            <span class="product-badge new">Nuevo</span>
+                        </div>
+                        <div class="product-content">
+                            <div class="product-category">Panes</div>
+                            <h4 class="product-title">Pan De Caracol</h4>
+                            <p class="product-description">Pan integral con mezcla de semillas de girasol, sésamo y chía. Rico en fibra y nutrientes.</p>
+                            <div class="product-details">
+                                <div class="product-price">$3.00</div>
+                                <div class="product-rating">
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <span class="rating-text">(4.8)</span>
+                                </div>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn btn-primary add-to-cart" data-id="6" data-name="Pan De Caracol" data-price="3.00" data-image="https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80">
+                                    <div class="btn-icon"></div>
+                                    Agregar al Carrito
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bollería -->
+            <div class="category-section" data-category="bolleria">
+                <div class="category-header">
+                    <div class="category-icon"></div>
+                    <div>
+                        <h3 class="category-title">Bollería</h3>
+                    </div>
+                    <div class="category-description">Dulces y salados recién horneados</div>
+                </div>
+                
+                <div class="products-grid">
+                    <div class="product-card" data-category="bolleria">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1555507036-ab794f4afe5e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')">
+                            <span class="product-badge popular">Popular</span>
+                        </div>
+                        <div class="product-content">
+                            <div class="product-category">Bollería</div>
+                            <h4 class="product-title">Croissants de Mantequilla</h4>
+                            <p class="product-description">Croissants franceses con capas de mantequilla, perfectos para el desayuno. Crujientes por fuera, tiernos por dentro.</p>
+                            <div class="product-details">
+                                <div class="product-price">$1.75</div>
+                                <div class="product-rating">
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <span class="rating-text">(4.9)</span>
+                                </div>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn btn-primary add-to-cart" data-id="4" data-name="Croissants de Mantequilla" data-price="1.75" data-image="https://images.unsplash.com/photo-1555507036-ab794f4afe5e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80">
+                                    <div class="btn-icon"></div>
+                                    Agregar al Carrito
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="bolleria">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-category">Bollería</div>
+                            <h4 class="product-title">Medialunas Dulces</h4>
+                            <p class="product-description">Tradicionales medialunas argentinas con un toque dulce, perfectas para acompañar con café o mate.</p>
+                            <div class="product-details">
+                                <div class="product-price">$1.50</div>
+                                <div class="product-rating">
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star empty"></div>
+                                    <span class="rating-text">(4.6)</span>
+                                </div>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn btn-primary add-to-cart" data-id="5" data-name="Medialunas Dulces" data-price="1.50" data-image="https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80">
+                                    <div class="btn-icon"></div>
+                                    Agregar al Carrito
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="bolleria">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1509365465985-25d11c17e812?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-category">Bollería</div>
+                            <h4 class="product-title">Facturas Surtidas</h4>
+                            <p class="product-description">Variedad de facturas tradicionales: vigilantes, bolas de fraile, cañoncitos y más. Precio por docena.</p>
+                            <div class="product-details">
+                                <div class="product-price">$12.00</div>
+                                <div class="product-rating">
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <span class="rating-text">(4.8)</span>
+                                </div>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn btn-primary add-to-cart" data-id="6" data-name="Facturas Surtidas (12 unidades)" data-price="12.00" data-image="https://images.unsplash.com/photo-1509365465985-25d11c17e812?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80">
+                                    <div class="btn-icon"></div>
+                                    Agregar al Carrito
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pasteles -->
+            <div class="category-section" data-category="pasteles">
+                <div class="category-header">
+                    <div class="category-icon"></div>
+                    <div>
+                        <h3 class="category-title">Pasteles y Postres</h3>
+                    </div>
+                    <div class="category-description">Para ocasiones especiales</div>
+                </div>
+                
+                <div class="products-grid">
+                    <div class="product-card" data-category="pasteles">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')">
+                            <span class="product-badge popular">Popular</span>
+                        </div>
+                        <div class="product-content">
+                            <div class="product-category">Pasteles</div>
+                            <h4 class="product-title">Torta de Chocolate</h4>
+                            <p class="product-description">Deliciosa torta de chocolate con ganache, perfecta para celebraciones. Disponible en diferentes tamaños.</p>
+                            <div class="product-details">
+                                <div class="product-price">$25.00</div>
+                                <div class="product-rating">
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <span class="rating-text">(5.0)</span>
+                                </div>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn btn-primary add-to-cart" data-id="7" data-name="Torta de Chocolate" data-price="25.00" data-image="https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80">
+                                    <div class="btn-icon"></div>
+                                    Agregar al Carrito
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="pasteles">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1571115764595-644a1f56a55c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-category">Pasteles</div>
+                            <h4 class="product-title">Cheesecake de Frutos Rojos</h4>
+                            <p class="product-description">Cremoso cheesecake con base de galleta y topping de frutos rojos frescos. Una delicia irresistible.</p>
+                            <div class="product-details">
+                                <div class="product-price">$4.50</div>
+                                <div class="product-rating">
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <span class="rating-text">(4.9)</span>
+                                </div>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn btn-primary add-to-cart" data-id="8" data-name="Cheesecake de Frutos Rojos" data-price="4.50" data-image="https://images.unsplash.com/photo-1571115764595-644a1f56a55c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80">
+                                    <div class="btn-icon"></div>
+                                    Agregar al Carrito
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="pasteles">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-category">Pasteles</div>
+                            <h4 class="product-title">Tarta de Frutas</h4>
+                            <p class="product-description">Tarta con crema pastelera y frutas frescas de estación. Un postre ligero y refrescante.</p>
+                            <div class="product-details">
+                                <div class="product-price">$18.00</div>
+                                <div class="product-rating">
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star empty"></div>
+                                    <span class="rating-text">(4.7)</span>
+                                </div>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn btn-primary add-to-cart" data-id="9" data-name="Tarta de Frutas" data-price="18.00" data-image="https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80">
+                                    <div class="btn-icon"></div>
+                                    Agregar al Carrito
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Empanadas -->
+            <div class="category-section" data-category="empanadas">
+                <div class="category-header">
+                    <div class="category-icon"></div>
+                    <div>
+                        <h3 class="category-title">Empanadas</h3>
+                    </div>
+                    <div class="category-description">Hechas con masa artesanal</div>
+                </div>
+                
+                <div class="products-grid">
+                    <div class="product-card" data-category="empanadas">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')">
+                            <span class="product-badge popular">Popular</span>
+                        </div>
+                        <div class="product-content">
+                            <div class="product-category">Empanadas</div>
+                            <h4 class="product-title">Empanadas de Carne</h4>
+                            <p class="product-description">Empanadas rellenas de carne cortada a cuchillo, cebolla, huevo duro y aceitunas. Receta tradicional.</p>
+                            <div class="product-details">
+                                <div class="product-price">$3.00</div>
+                                <div class="product-rating">
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <span class="rating-text">(4.8)</span>
+                                </div>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn btn-primary add-to-cart" data-id="10" data-name="Empanadas de Carne" data-price="3.00" data-image="https://images.unsplash.com/photo-1601050690597-df0568f70950?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80">
+                                    <div class="btn-icon"></div>
+                                    Agregar al Carrito
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="empanadas">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-category">Empanadas</div>
+                            <h4 class="product-title">Empanadas de Pollo</h4>
+                            <p class="product-description">Empanadas de pollo desmenuzado con verduras y especias. Una opción más ligera y sabrosa.</p>
+                            <div class="product-details">
+                                <div class="product-price">$2.80</div>
+                                <div class="product-rating">
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star empty"></div>
+                                    <span class="rating-text">(4.6)</span>
+                                </div>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn btn-primary add-to-cart" data-id="11" data-name="Empanadas de Pollo" data-price="2.80" data-image="https://images.unsplash.com/photo-1565299624946-b28f40a0ca4b?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80">
+                                    <div class="btn-icon"></div>
+                                    Agregar al Carrito
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="empanadas">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1574484284002-952d92456975?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')">
+                            <span class="product-badge new">Nuevo</span>
+                        </div>
+                        <div class="product-content">
+                            <div class="product-category">Empanadas</div>
+                            <h4 class="product-title">Empanadas de Verdura</h4>
+                            <p class="product-description">Empanadas vegetarianas con acelga, ricota, cebolla y especias. Perfectas para vegetarianos.</p>
+                            <div class="product-details">
+                                <div class="product-price">$2.50</div>
+                                <div class="product-rating">
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <span class="rating-text">(4.7)</span>
+                                </div>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn btn-primary add-to-cart" data-id="12" data-name="Empanadas de Verdura" data-price="2.50" data-image="https://images.unsplash.com/photo-1574484284002-952d92456975?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80">
+                                    <div class="btn-icon"></div>
+                                    Agregar al Carrito
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bebidas -->
+            <div class="category-section" data-category="bebidas">
+                <div class="category-header">
+                    <div class="category-icon"></div>
+                    <div>
+                        <h3 class="category-title">Bebidas</h3>
+                    </div>
+                    <div class="category-description">Para acompañar tus productos favoritos</div>
+                </div>
+                
+                <div class="products-grid">
+                    <div class="product-card" data-category="bebidas">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-category">Bebidas</div>
+                            <h4 class="product-title">Café Espresso</h4>
+                            <p class="product-description">Café espresso de granos seleccionados, tostado artesanalmente. Perfecto para acompañar nuestros productos.</p>
+                            <div class="product-details">
+                                <div class="product-price">$2.00</div>
+                                <div class="product-rating">
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <span class="rating-text">(4.8)</span>
+                                </div>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn btn-primary add-to-cart" data-id="13" data-name="Café Espresso" data-price="2.00" data-image="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80">
+                                    <div class="btn-icon"></div>
+                                    Agregar al Carrito
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="bebidas">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1544787219-7f47ccb76574?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-category">Bebidas</div>
+                            <h4 class="product-title">Chocolate Caliente</h4>
+                            <p class="product-description">Chocolate caliente cremoso preparado con cacao premium. Ideal para los días fríos.</p>
+                            <div class="product-details">
+                                <div class="product-price">$2.50</div>
+                                <div class="product-rating">
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star empty"></div>
+                                    <span class="rating-text">(4.6)</span>
+                                </div>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn btn-primary add-to-cart" data-id="14" data-name="Chocolate Caliente" data-price="2.50" data-image="https://images.unsplash.com/photo-1544787219-7f47ccb76574?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80">
+                                    <div class="btn-icon"></div>
+                                    Agregar al Carrito
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="product-card" data-category="bebidas">
+                        <div class="product-image" style="background-image: url('https://images.unsplash.com/photo-1556679343-c7306c1976bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80')">
+                        </div>
+                        <div class="product-content">
+                            <div class="product-category">Bebidas</div>
+                            <h4 class="product-title">Jugo Natural de Naranja</h4>
+                            <p class="product-description">Jugo de naranja recién exprimido, sin conservantes ni azúcares añadidos. Pura vitamina C.</p>
+                            <div class="product-details">
+                                <div class="product-price">$3.00</div>
+                                <div class="product-rating">
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <div class="star"></div>
+                                    <span class="rating-text">(4.9)</span>
+                                </div>
+                            </div>
+                            <div class="product-actions">
+                                <button class="btn btn-primary add-to-cart" data-id="15" data-name="Jugo Natural de Naranja" data-price="3.00" data-image="https://images.unsplash.com/photo-1556679343-c7306c1976bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80">
+                                    <div class="btn-icon"></div>
+                                    Agregar al Carrito
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Cart Button -->
+    <button class="cart-button" id="cartButton">
+        🛒
+        <span class="cart-count" id="cartCount">0</span>
+    </button>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar" id="cartSidebar">
+        <div class="cart-header">
+            <h3 class="cart-title">Mi Carrito</h3>
+            <button class="close-cart" id="closeCart">✕</button>
+        </div>
+        <div class="cart-content">
+            <div id="cartItems"></div>
+            <div class="cart-total">
+                <div class="total-line">
+                    <span>Subtotal:</span>
+                    <span id="subtotal">$0.00</span>
+                </div>
+                <div class="total-line">
+                    <span>Envío:</span>
+                    <span>$2.00</span>
+                </div>
+                <div class="total-line total-final">
+                    <span>Total:</span>
+                    <span id="total">$2.00</span>
+                </div>
+                <button class="btn btn-primary" style="width: 100%; margin-top: 1rem;">
+                    Proceder al Pago
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="Catalogo.js"></script>
+</body>
+</html>
