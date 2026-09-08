@@ -1,0 +1,157 @@
+[
+  {
+    "id": 1,
+    "nombre": "Pan Frances",
+    "categoria": "panes",
+    "descripcion": "Pan tradicional con corteza crujiente y miga esponjosa, horneado en horno de leña con masa madre natural.",
+    "precio": 0.25,
+    "precio_display": "4 x S/1",
+    "rating": 4.9,
+    "badge": "popular",
+    "imagen_url": "https://images.unsplash.com/photo-1635662279991-b7181585a72c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": 2,
+    "nombre": "Pan Ciabatta",
+    "categoria": "panes",
+    "descripcion": "Pan italiano de corteza fina y miga alveolada, ideal para sándwiches y bruschettas.",
+    "precio": 0.25,
+    "precio_display": "4 x S/1",
+    "rating": 4.7,
+    "badge": "popular",
+    "imagen_url": "https://images.unsplash.com/photo-1601467450590-8c3d11cde2fd?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": 3,
+    "nombre": "Pan Baguetino",
+    "categoria": "panes",
+    "descripcion": "Auténtica baguette con corteza dorada y miga alveolada, perfecta para acompañar cualquier comida.",
+    "precio": 0.25,
+    "precio_display": "4 x S/1",
+    "rating": 4.7,
+    "badge": null,
+    "imagen_url": "https://images.unsplash.com/photo-1549931319-a545dcf3bc73?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": 4,
+    "nombre": "Pan Integral",
+    "categoria": "panes",
+    "descripcion": "Pan integral con mezcla de semillas de girasol, sésamo y chía. Rico en fibra y nutrientes.",
+    "precio": 0.3333333333333333,
+    "precio_display": "3 x S/1",
+    "rating": 4.8,
+    "badge": "nuevo",
+    "imagen_url": "https://images.unsplash.com/photo-1693480532308-343b33da48e3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": 5,
+    "nombre": "Pan De Camote",
+    "categoria": "panes",
+    "descripcion": "Pan artesanal de camote con masa suave y ligeramente dulce. Acompaña perfecto con mantequilla o mermelada.",
+    "precio": 0.3333333333333333,
+    "precio_display": "3 x S/1",
+    "rating": 4.8,
+    "badge": "nuevo",
+    "imagen_url": "https://images.unsplash.com/photo-1559811814-e2c57b5e69df?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": 6,
+    "nombre": "Pan De Caracol",
+    "categoria": "panes",
+    "descripcion": "Delicioso pan en forma de caracol con canela y pasas, cubierto con glaseado de vainilla. Esponjoso y aromático.",
+    "precio": 0.3333333333333333,
+    "precio_display": "3 x S/1",
+    "rating": 4.8,
+    "badge": "nuevo",
+    "imagen_url": "https://images.unsplash.com/photo-1644930243012-b191e01a4fe3?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+  },
+  {
+    "id": 7,
+    "nombre": "Torta de Chocolate",
+    "categoria": "pasteles",
+    "descripcion": "Deliciosa torta de chocolate con ganache, perfecta para celebraciones. Disponible en diferentes tamaños.",
+    "precio": 25.00,
+    "precio_display": "S/25.00",
+    "rating": 5.0,
+    "badge": "popular",
+    "imagen_url": "https://images.unsplash.com/photo-1578985545062-69928b1d9587?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": 8,
+    "nombre": "Cheesecake de Frutos Rojos",
+    "categoria": "pasteles",
+    "descripcion": "Cremoso cheesecake con base de galleta y topping de frutos rojos frescos. Una delicia irresistible.",
+    "precio": 4.50,
+    "precio_display": "S/4.50",
+    "rating": 4.9,
+    "badge": null,
+    "imagen_url": "https://images.unsplash.com/photo-1571115764595-644a1f56a55c?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": 9,
+    "nombre": "Tarta de Frutas",
+    "categoria": "pasteles",
+    "descripcion": "Tarta con crema pastelera y frutas frescas de estación. Un postre ligero y refrescante.",
+    "precio": 18.00,
+    "precio_display": "S/18.00",
+    "rating": 4.7,
+    "badge": null,
+    "imagen_url": "https://images.unsplash.com/photo-1464349095431-e9a21285b5f3?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": 10,
+    "nombre": "Croissants de Mantequilla",
+    "categoria": "bolleria",
+    "descripcion": "Croissants franceses con capas de mantequilla, perfectos para el desayuno. Crujientes por fuera, tiernos por dentro.",
+    "precio": 1.75,
+    "precio_display": "S/1.75",
+    "rating": 4.9,
+    "badge": "popular",
+    "imagen_url": "https://images.unsplash.com/photo-1555507036-ab794f4afe5e?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": 11,
+    "nombre": "Medialunas Dulces",
+    "categoria": "bolleria",
+    "descripcion": "Tradicionales medialunas argentinas con un toque dulce, perfectas para acompañar con café o mate.",
+    "precio": 1.50,
+    "precio_display": "S/1.50",
+    "rating": 4.6,
+    "badge": null,
+    "imagen_url": "https://images.unsplash.com/photo-1551024506-0bccd828d307?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": 12,
+    "nombre": "Facturas Surtidas (12 unidades)",
+    "categoria": "bolleria",
+    "descripcion": "Variedad de facturas tradicionales: vigilantes, bolas de fraile, cañoncitos y más. Precio por docena.",
+    "precio": 12.00,
+    "precio_display": "S/12.00",
+    "rating": 4.8,
+    "badge": null,
+    "imagen_url": "https://images.unsplash.com/photo-1509365465985-25d11c17e812?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80"
+  },
+  {
+    "id": 13,
+    "nombre": "Pan de Yema",
+    "categoria": "panes",
+    "descripcion": "Pan dulce tradicional peruano, suave y esponjoso, con un ligero sabor a yema de huevo.",
+    "precio": 0.3333333333333333,
+    "precio_display": "3 x S/1",
+    "rating": 4.7,
+    "badge": null,
+    "imagen_url": "img/PanYema.jpg"
+  },
+  {
+    "id": 14,
+    "nombre": "Torta Helada",
+    "categoria": "pasteles",
+    "descripcion": "Torta helada con crema pastelera y frutas frescas de estación. Un postre ligero y refrescante.",
+    "precio": 18.00,
+    "precio_display": "S/18.00",
+    "rating": 4.7,
+    "badge": null,
+    "imagen_url": "https://images.unsplash.com/photo-1572837663132-76c0ccd9cb6f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
+  }
+]
+
