@@ -16,10 +16,11 @@
     <meta property="og:url" content="https://lacasadelpan.com/catalogo.html">
     
     <!-- Favicon -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥖</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d97706' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 4a6 6 0 0 0 12 0 6 6 0 0 0-12 0'/%3E%3Cpath d='M3 20c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2'/%3E%3Cpath d='M3 20a9 9 0 0 1 6-17'/%3E%3C/svg%3E">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=70" fetchpriority="high">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="catalogo.css">
@@ -30,7 +31,7 @@
         <div class="container">
             <div class="header-content">
                 <a href="index.html" class="logo">
-                    <span class="logo-icon">🥖</span>
+                    <span class="logo-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4a6 6 0 0 0 12 0 6 6 0 0 0-12 0"/><path d="M3 20c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2"/><path d="M3 20a9 9 0 0 1 6-17"/></svg></span>
                     <h1>La Casa Del Pan</h1>
                 </a>
                 <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
@@ -39,10 +40,10 @@
                     <span class="menu-bar"></span>
                 </button>
                 <nav id="mainNav">
-                    <a href="index.html">🏠 Inicio</a>
-                    <a href="catalogo.html" class="active">📖 Catálogo</a>
-                    <a href="index.html#nosotros">👨‍🍳 Nosotros</a>
-                    <a href="index.html#contacto">📞 Contacto</a>
+                    <a href="index.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-5h-6v5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/></svg> Inicio</a>
+                    <a href="catalogo.html" class="active"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> Catálogo</a>
+                    <a href="index.html#nosotros"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Nosotros</a>
+                    <a href="index.html#contacto"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.8.34 1.58.66 2.32a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.76-1.26a2 2 0 0 1 2.11-.45c.74.32 1.52.54 2.32.66A2 2 0 0 1 22 16.92z"/></svg> Contacto</a>
                 </nav>
             </div>
         </div>
@@ -51,22 +52,22 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <span class="hero-badge">✨ +50 productos artesanales</span>
-            <h2><span class="hero-emoji">🛍️</span> Nuestro Catálogo <span class="hero-emoji">🥐</span></h2>
+            <span class="hero-badge"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg> +50 productos artesanales</span>
+            <h2>Nuestro Catálogo</h2>
             <p>Descubre toda nuestra variedad de productos artesanales, desde panes tradicionales hasta deliciosos postres</p>
             <div class="hero-stats">
                 <div class="hero-stat">
-                    <span class="stat-icon">🍞</span>
+                    <span class="stat-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4a6 6 0 0 0 12 0 6 6 0 0 0-12 0"/><path d="M3 20c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2"/><path d="M3 20a9 9 0 0 1 6-17"/></svg></span>
                     <span class="stat-num">12+</span>
                     <span class="stat-label">Panes</span>
                 </div>
                 <div class="hero-stat">
-                    <span class="stat-icon">🥐</span>
+                    <span class="stat-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><line x1="12" y1="8" x2="12" y2="14"/><line x1="12" y1="14" x2="8" y2="14"/><line x1="12" y1="14" x2="16" y2="14"/></svg></span>
                     <span class="stat-num">8+</span>
                     <span class="stat-label">Bollería</span>
                 </div>
                 <div class="hero-stat">
-                    <span class="stat-icon">🎂</span>
+                    <span class="stat-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span>
                     <span class="stat-num">10+</span>
                     <span class="stat-label">Pasteles</span>
                 </div>
@@ -77,15 +78,15 @@
     <!-- Filters -->
     <section class="filters">
         <div class="container">
-            <button class="filters-toggle" id="filtersToggle">☰ Filtrar Productos</button>
+            <button class="filters-toggle" id="filtersToggle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg> <span id="filtersToggleText">Filtrar Productos</span></button>
             <div class="filters-content" id="filtersContent">
-                <button class="filter-btn active" data-category="todos">🍽️ Todos</button>
-                <button class="filter-btn" data-category="panes">🍞 Panes</button>
-                <button class="filter-btn" data-category="bolleria">🥐 Bollería</button>
-                <button class="filter-btn" data-category="pasteles">🎂 Pasteles</button>
+                <button class="filter-btn active" data-category="todos">Todos</button>
+                <button class="filter-btn" data-category="panes">Panes</button>
+                <button class="filter-btn" data-category="bolleria">Bollería</button>
+                <button class="filter-btn" data-category="pasteles">Pasteles</button>
 
                 <div class="search-box">
-                    <span class="search-emoji">🔍</span>
+                    <span class="search-emoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></span>
                     <input type="text" id="searchInput" placeholder="Buscar productos...">
                 </div>
             </div>
@@ -96,14 +97,14 @@
     <section class="products-section" id="productsSection">
         <div class="container" id="productsContainer">
             <div class="loading" id="loadingProducts">
-                <p>🔄 Cargando productos deliciosos...</p>
+                <p>Cargando productos deliciosos...</p>
             </div>
         </div>
     </section>
 
     <!-- Cart Button -->
     <button class="cart-button" id="cartButton">
-        🛒
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
         <span class="cart-count" id="cartCount">0</span>
     </button>
 
@@ -111,22 +112,22 @@
     <div class="cart-overlay" id="cartOverlay"></div>
     <div class="cart-sidebar" id="cartSidebar">
         <div class="cart-header">
-            <h3 class="cart-title">🛍️ Mi Carrito</h3>
-            <button class="close-cart" id="closeCart">✕</button>
+            <h3 class="cart-title">Mi Carrito</h3>
+            <button class="close-cart" id="closeCart"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
         </div>
         <div class="cart-content">
             <div id="cartItems"></div>
             <div class="cart-total">
                 <div class="total-line">
-                    <span>💰 Subtotal:</span>
+                    <span>Subtotal:</span>
                     <span id="subtotal">S/0.00</span>
                 </div>
                 <div class="total-line">
-                    <span>🚚 Envío:</span>
+                    <span>Envío:</span>
                     <span>S/0.00</span>
                 </div>
                 <div class="total-line total-final">
-                    <span>💵 Total:</span>
+                    <span>Total:</span>
                     <span id="total">S/0.00</span>
                 </div>
                 <button id="checkoutBtn" class="btn btn-whatsapp" style="width:100%; margin-top:1rem;">
@@ -144,7 +145,7 @@
     <div class="product-modal" id="productModal">
         <div class="modal-overlay" id="modalOverlay"></div>
         <div class="modal-container">
-            <button class="modal-close" id="modalClose">✕</button>
+            <button class="modal-close" id="modalClose"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
             <div class="modal-content">
                 <div class="modal-image">
                     <img id="modalProductImage" src="" alt="">
@@ -165,7 +166,7 @@
                         </div>
                     </div>
                     <button class="btn btn-primary modal-add-to-cart" id="modalAddToCart">
-                        <span class="btn-emoji">🛒</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" class="btn-emoji"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
                         Agregar al Carrito
                     </button>
                 </div>

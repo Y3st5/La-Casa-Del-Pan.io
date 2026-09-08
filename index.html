@@ -14,9 +14,10 @@
     <link rel="canonical" href="https://lacasadelpan.com">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=70" fetchpriority="high">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="inicio.css">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🥖</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23d97706' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9 4a6 6 0 0 0 12 0 6 6 0 0 0-12 0'/%3E%3Cpath d='M3 20c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2'/%3E%3Cpath d='M3 20a9 9 0 0 1 6-17'/%3E%3C/svg%3E">
 </head>
 <body>
     <!-- Header -->
@@ -24,7 +25,9 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">
-                    <span class="logo-icon">🥖</span>
+                    <span class="logo-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4a6 6 0 0 0 12 0 6 6 0 0 0-12 0"/><path d="M3 20c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2"/><path d="M3 20a9 9 0 0 1 6-17"/></svg>
+                    </span>
                     <h1>La Casa Del Pan</h1>
                 </div>
                 <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
@@ -33,11 +36,11 @@
                     <span class="bar"></span>
                 </button>
                 <nav id="mainNav">
-                    <a href="#inicio">🏠 Inicio</a>
-                    <a href="#productos">🍞 Productos</a>
-                    <a href="catalogo.html">📖 Catálogo</a>
-                    <a href="#nosotros">👨‍🍳 Nosotros</a>
-                    <a href="#contacto">📞 Contacto</a>
+                    <a href="#inicio"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9.5 12 3l9 6.5V20a1 1 0 0 1-1 1h-4a1 1 0 0 1-1-1v-5h-6v5a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1z"/></svg> Inicio</a>
+                    <a href="#productos"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg> Productos</a>
+                    <a href="catalogo.html"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg> Catálogo</a>
+                    <a href="#nosotros"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Nosotros</a>
+                    <a href="#contacto"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.8.34 1.58.66 2.32a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.76-1.26a2 2 0 0 1 2.11-.45c.74.32 1.52.54 2.32.66A2 2 0 0 1 22 16.92z"/></svg> Contacto</a>
                 </nav>
             </div>
         </div>
@@ -46,27 +49,27 @@
     <!-- Hero Section -->
     <section id="inicio" class="hero">
         <div class="container">
-            <span class="hero-badge">✨ Horneado artesanal desde 2018</span>
-            <h2><span class="hero-emoji">🥐</span> Pan Fresco Todos los Días <span class="hero-emoji">🍞</span></h2>
+            <span class="hero-badge"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4a6 6 0 0 0 12 0 6 6 0 0 0-12 0"/><path d="M3 20c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2"/><path d="M3 20a9 9 0 0 1 6-17"/></svg> Horneado artesanal desde 2018</span>
+            <h2>Pan Fresco Todos los Días</h2>
             <p>
                 Desde 2018, horneamos con amor y tradición los mejores panes artesanales de la ciudad.
                 Ven y disfruta del aroma y sabor que solo nosotros podemos ofrecerte.
             </p>
             <div class="hero-buttons">
-                <a href="catalogo.html" class="btn btn-primary">🛒 Ver Catálogo Completo</a>
-                <a href="#contacto" class="btn btn-outline">📝 Hacer Pedido</a>
+                <a href="catalogo.html" class="btn btn-primary"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg> Ver Catálogo Completo</a>
+                <a href="#contacto" class="btn btn-outline"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Hacer Pedido</a>
             </div>
             <div class="hero-features">
                 <div class="hero-feature">
-                    <span class="feature-icon">⏰</span>
+                    <span class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
                     <span class="feature-text">Abierto desde las 6 AM</span>
                 </div>
                 <div class="hero-feature">
-                    <span class="feature-icon">🚚</span>
+                    <span class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13" rx="1"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></span>
                     <span class="feature-text">Delivery disponible</span>
                 </div>
                 <div class="hero-feature">
-                    <span class="feature-icon">⭐</span>
+                    <span class="feature-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></span>
                     <span class="feature-text">+7 años de tradición</span>
                 </div>
             </div>
@@ -77,51 +80,51 @@
     <section id="productos" class="products">
         <div class="container">
             <div class="section-title">
-                <h3><span class="title-emoji">🍰</span> Nuestros Productos <span class="title-emoji">🥯</span></h3>
+                <h3>Nuestros Productos</h3>
                 <p>Elaborados con ingredientes de la más alta calidad y técnicas tradicionales</p>
             </div>
 
             <div class="products-grid">
                 <div class="product-card">
-                    <div class="product-icon">🥖</div>
+                    <div class="product-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4a6 6 0 0 0 12 0 6 6 0 0 0-12 0"/><path d="M3 20c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2"/><path d="M3 20a9 9 0 0 1 6-17"/></svg></div>
                     <h4>Panes Artesanales</h4>
                     <p class="description">Panes tradicionales horneados diariamente</p>
                     <ul class="product-list">
-                        <li>🍞 Pan Frances</li>
-                        <li>🥖 Pan Ciabatta</li>
-                        <li>🥐 Pan Baguetino</li>
-                        <li>🍠 Pan de Camote</li>
-                        <li>🌾 Pan integral</li>
-                        <li>🥚 Pan de Yema</li>
-                        <li>🐚 Pan de Caracol</li>
+                        <li>Pan Frances</li>
+                        <li>Pan Ciabatta</li>
+                        <li>Pan Baguetino</li>
+                        <li>Pan de Camote</li>
+                        <li>Pan integral</li>
+                        <li>Pan de Yema</li>
+                        <li>Pan de Caracol</li>
                     </ul>
                 </div>
 
                 <div class="product-card">
-                    <div class="product-icon">🥐</div>
+                    <div class="product-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><line x1="12" y1="8" x2="12" y2="14"/><line x1="12" y1="14" x2="8" y2="14"/><line x1="12" y1="14" x2="16" y2="14"/></svg></div>
                     <h4>Cafetería</h4>
                     <p class="description">Dulces y salados recién horneados</p>
                     <ul class="product-list">
-                        <li>🥐 Croissants</li>
-                        <li>🥟 Empanadas</li>
-                        <li>🥮 Medialunas</li>
-                        <li>🥧 Pie de Manzana</li>
-                        <li>🍰 Keké de Chocolate</li>
-                        <li>🍇 Keké de higo</li>
+                        <li>Croissants</li>
+                        <li>Empanadas</li>
+                        <li>Medialunas</li>
+                        <li>Pie de Manzana</li>
+                        <li>Keké de Chocolate</li>
+                        <li>Keké de higo</li>
                     </ul>
                 </div>
 
                 <div class="product-card">
-                    <div class="product-icon">🎂</div>
+                    <div class="product-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
                     <h4>Pastelería</h4>
                     <p class="description">Tortas y postres para ocasiones especiales</p>
                     <ul class="product-list">
-                        <li>🎂 Tortas de cumpleaños</li>
-                        <li>🥧 Tartas de frutas</li>
-                        <li>🍰 Cheesecakes</li>
-                        <li>🍮 Postres individuales</li>
-                        <li>🍫 Torta de Chocolate</li>
-                        <li>🍦 Torta helada</li>
+                        <li>Tortas de cumpleaños</li>
+                        <li>Tartas de frutas</li>
+                        <li>Cheesecakes</li>
+                        <li>Postres individuales</li>
+                        <li>Torta de Chocolate</li>
+                        <li>Torta helada</li>
                     </ul>
                 </div>
             </div>
@@ -129,14 +132,14 @@
             <!-- Botón Ver Catálogo -->
             <div style="text-align: center; margin-bottom: 3rem;">
                 <a href="catalogo.html" class="btn btn-primary" style="font-size: 1.1rem; padding: 1rem 2.5rem;">
-                    📋 Ver Catálogo Completo con Precios
+                    Ver Catálogo Completo con Precios
                 </a>
             </div>
 
             <!-- Gallery -->
             <div class="gallery">
                 <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1549931319-a545dcf3bc73?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Imagen de Pan de Campo">
+                    <img src="https://images.unsplash.com/photo-1549931319-a545dcf3bc73?ixlib=rb-4.0.3&auto=format&fit=crop&w=400&q=80" alt="Imagen de Pan de Campo" loading="lazy" decoding="async">
                     <div class="gallery-overlay">
                         <span class="badge">Panes frescos</span>
                     </div>
@@ -168,30 +171,30 @@
         <div class="container">
             <div class="about-content">
                 <div class="about-text">
-                    <h3><span class="title-emoji">👨‍🍳</span> Nuestra Historia</h3>
+                    <h3>Nuestra Historia</h3>
                     <p>
                         Fundada en 2018 por la familia Peralta Ramirez, La Casa Del Pan ha sido el corazón de nuestra
                         comunidad durante más de 7 años. Comenzamos como un pequeño negocio familiar con el sueño
-                        de ofrecer pan fresco y de calidad a nuestros vecinos. 💛
+                        de ofrecer pan fresco y de calidad a nuestros vecinos.
                     </p>
                     <p>
                         Hoy en día, seguimos manteniendo las mismas tradiciones y recetas que nos han caracterizado,
                         combinando técnicas artesanales con ingredientes de primera calidad para crear productos
-                        únicos que deleitan a toda la familia. 👨‍👩‍👧‍👦
+                        únicos que deleitan a toda la familia.
                     </p>
                     <div class="about-stats">
                         <div class="stat">
-                            <span class="stat-icon">🏆</span>
+                            <span class="stat-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg></span>
                             <span class="stat-number">7+</span>
                             <span class="stat-label">Años de experiencia</span>
                         </div>
                         <div class="stat">
-                            <span class="stat-icon">😊</span>
+                            <span class="stat-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></span>
                             <span class="stat-number">+5K</span>
                             <span class="stat-label">Clientes felices</span>
                         </div>
                         <div class="stat">
-                            <span class="stat-icon">🥖</span>
+                            <span class="stat-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4a6 6 0 0 0 12 0 6 6 0 0 0-12 0"/><path d="M3 20c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2"/><path d="M3 20a9 9 0 0 1 6-17"/></svg></span>
                             <span class="stat-number">50+</span>
                             <span class="stat-label">Productos frescos</span>
                         </div>
@@ -202,7 +205,7 @@
                         src="https://www.google.com/maps?q=Av.+Principal+123,+Centro,+Ciudad,+CP+12345&output=embed"
                         width="350" height="250" style="border:0; border-radius:12px; box-shadow:0 2px 8px rgba(0,0,0,0.1);" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
                     </iframe>
-                    <p style="color:#92400e; font-weight:600;">📍 Encuéntranos fácilmente</p>
+                    <p style="color:#92400e; font-weight:600;">Encuéntranos fácilmente</p>
                 </div>
             </div>
         </div>
@@ -214,29 +217,29 @@
             <div class="info-grid">
                 <div class="info-card">
                     <h4>
-                        <span class="info-icon">🕐</span>
+                        <span class="info-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span>
                         Horarios de Atención
                     </h4>
                     <div class="schedule-item">
-                        <span class="schedule-day">📅 Lunes - Sábados:</span>
+                        <span class="schedule-day">Lunes - Sábados:</span>
                         <span class="schedule-time">6:00 AM - 7:00 PM</span>
                     </div>
                     <div class="schedule-item">
-                        <span class="schedule-day">📅 Domingos:</span>
+                        <span class="schedule-day">Domingos:</span>
                         <span class="schedule-time">7:00 AM - 1:00 PM</span>
                     </div>
                     <div class="note">
-                        <p>💡 <strong>Nota:</strong> Los productos frescos están disponibles desde las 7:00 AM todos los días.</p>
+                        <p><strong>Nota:</strong> Los productos frescos están disponibles desde las 7:00 AM todos los días.</p>
                     </div>
                 </div>
 
                 <div class="info-card">
                     <h4>
-                        <span class="info-icon">📍</span>
+                        <span class="info-icon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
                         Ubicación y Contacto
                     </h4>
                     <div class="contact-item">
-                        <span class="contact-emoji">📍</span>
+                        <span class="contact-emoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
                         <div>
                             <p><strong>Dirección</strong></p>
                             <p>Av. Principal 123, Centro</p>
@@ -244,14 +247,14 @@
                         </div>
                     </div>
                     <div class="contact-item">
-                        <span class="contact-emoji">📞</span>
+                        <span class="contact-emoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.8.34 1.58.66 2.32a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.76-1.26a2 2 0 0 1 2.11-.45c.74.32 1.52.54 2.32.66A2 2 0 0 1 22 16.92z"/></svg></span>
                         <div>
                             <p><strong>Teléfono</strong></p>
                             <p>(555) 123-4567</p>
                         </div>
                     </div>
                     <div class="contact-item">
-                        <span class="contact-emoji">✉️</span>
+                        <span class="contact-emoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
                         <div>
                             <p><strong>Email</strong></p>
                             <p>info@lacasadelpan.com</p>
@@ -267,7 +270,7 @@
         <div class="container">
             <div class="contact-form">
                 <div class="section-title">
-                    <h3><span class="title-emoji">💌</span> Contáctanos <span class="title-emoji">📨</span></h3>
+                    <h3>Contáctanos</h3>
                     <p>¿Tienes alguna pregunta o quieres hacer un pedido especial? ¡Escríbenos!</p>
                 </div>
 
@@ -275,23 +278,23 @@
                     <form id="contactForm">
                         <div class="form-row">
                             <div class="form-group">
-                                <label for="nombre">👤 Nombre</label>
+                                <label for="nombre">Nombre</label>
                                 <input type="text" id="nombre" class="form-control" placeholder="Tu nombre completo">
                             </div>
                             <div class="form-group">
-                                <label for="email">✉️ Email</label>
+                                <label for="email">Email</label>
                                 <input type="email" id="email" class="form-control" placeholder="tu@email.com">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="telefono">📞 Teléfono</label>
+                            <label for="telefono">Teléfono</label>
                             <input type="tel" id="telefono" class="form-control" placeholder="(555) 123-4567">
                         </div>
                         <div class="form-group">
-                            <label for="mensaje">💬 Mensaje</label>
+                            <label for="mensaje">Mensaje</label>
                             <textarea id="mensaje" class="form-control" placeholder="Cuéntanos en qué podemos ayudarte..."></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary" style="width: 100%;">📱 Enviar por WhatsApp</button>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;">Enviar por WhatsApp</button>
                     </form>
                 </div>
             </div>
@@ -304,46 +307,46 @@
             <div class="footer-content">
                 <div class="footer-section">
                     <div class="logo">
-                        <span class="logo-icon" style="background: #fbbf24;">🥖</span>
+                        <span class="logo-icon" style="background: #fbbf24;"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4a6 6 0 0 0 12 0 6 6 0 0 0-12 0"/><path d="M3 20c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2"/><path d="M3 20a9 9 0 0 1 6-17"/></svg></span>
                         <h4>La Casa Del Pan</h4>
                     </div>
-                    <p>💛 Tradición y calidad en cada bocado desde 2018.</p>
+                    <p>Tradicíon y calidad en cada bocado desde 2018.</p>
                     <div class="social-buttons">
-                        <a href="#" class="social-btn">📘 Facebook</a>
-                        <a href="#" class="social-btn">📷 Instagram</a>
+                        <a href="#" class="social-btn">Facebook</a>
+                        <a href="#" class="social-btn">Instagram</a>
                     </div>
                 </div>
 
                 <div class="footer-section">
-                    <h4>🔗 Enlaces Rápidos</h4>
+                    <h4>Enlaces Rápidos</h4>
                     <ul class="footer-links">
-                        <li><a href="#inicio">🏠 Inicio</a></li>
-                        <li><a href="#productos">🍞 Productos</a></li>
-                        <li><a href="catalogo.html">📖 Catálogo</a></li>
-                        <li><a href="#nosotros">👨‍🍳 Nosotros</a></li>
-                        <li><a href="#contacto">📞 Contacto</a></li>
+                        <li><a href="#inicio">Inicio</a></li>
+                        <li><a href="#productos">Productos</a></li>
+                        <li><a href="catalogo.html">Catálogo</a></li>
+                        <li><a href="#nosotros">Nosotros</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
                     </ul>
                 </div>
 
                 <div class="footer-section">
-                    <h4>📋 Información</h4>
+                    <h4>Información</h4>
                     <div class="contact-item">
-                        <span class="contact-emoji">📍</span>
+                        <span class="contact-emoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span>
                         <p>Av. Principal 123, Centro</p>
                     </div>
                     <div class="contact-item">
-                        <span class="contact-emoji">📞</span>
+                        <span class="contact-emoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.8.34 1.58.66 2.32a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.76-1.26a2 2 0 0 1 2.11-.45c.74.32 1.52.54 2.32.66A2 2 0 0 1 22 16.92z"/></svg></span>
                         <p>(555) 123-4567</p>
                     </div>
                     <div class="contact-item">
-                        <span class="contact-emoji">✉️</span>
+                        <span class="contact-emoji"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></span>
                         <p>info@lacasadelpan.com</p>
                     </div>
                 </div>
             </div>
 
             <div class="footer-bottom">
-                <p>© 2026 La Casa Del Pan. Hecho con 💛 · Todos los derechos reservados.</p>
+                <p>© 2026 La Casa Del Pan. Todos los derechos reservados.</p>
             </div>
         </div>
     </footer>

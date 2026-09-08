@@ -162,13 +162,16 @@ h2, h3, h4, .logo h1, .hero h2, .category-title, .cart-title, .modal-title {
 
 /* Header */
 header {
-    background: white;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    border-bottom: 2px solid #fbbf24;
+    background: rgba(255, 252, 245, 0.85);
+    box-shadow: 0 1px 0 rgba(120, 53, 15, 0.08), 0 8px 30px rgba(120, 53, 15, 0.06);
+    border-bottom: 1px solid rgba(251, 191, 36, 0.25);
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 1000;
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
 .header-content {
@@ -222,8 +225,11 @@ nav a:hover, nav a.active {
 
 /* Hero Section */
 .hero {
-    background: linear-gradient(135deg, #fffbeb 0%, #fed7aa 50%, #fdba74 100%);
-    padding: 8rem 1rem 4rem;
+    background:
+        linear-gradient(180deg, rgba(28, 16, 6, 0.7) 0%, rgba(60, 34, 12, 0.5) 55%, rgba(20, 10, 4, 0.8) 100%),
+        url('https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=70') center/cover no-repeat;
+    background-position: center 40%;
+    padding: 9rem 1rem 5rem;
     text-align: center;
     margin-top: 80px;
     position: relative;
@@ -231,39 +237,37 @@ nav a:hover, nav a.active {
 }
 
 .hero::before {
-    content: '🛍️ 🥐 🍞 🥯 🥨';
+    content: '';
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 7rem;
-    opacity: 0.05;
-    letter-spacing: 4rem;
-    white-space: nowrap;
+    inset: 0;
+    background: radial-gradient(ellipse at 30% 20%, rgba(251, 191, 36, 0.16), transparent 55%);
     pointer-events: none;
 }
 
 .hero-badge {
     display: inline-block;
-    background: rgba(255, 255, 255, 0.85);
-    color: #92400e;
-    padding: 0.5rem 1.25rem;
+    background: rgba(255, 255, 255, 0.92);
+    color: #7c2d12;
+    padding: 0.6rem 1.5rem;
     border-radius: 2rem;
-    font-size: 0.9rem;
+    font-size: 0.92rem;
     font-weight: 600;
-    margin-bottom: 1.5rem;
-    box-shadow: 0 4px 12px rgba(146, 64, 14, 0.12);
-    border: 1px solid #fbbf24;
+    letter-spacing: 0.02em;
+    margin-bottom: 1.6rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(251, 191, 36, 0.5);
+    backdrop-filter: blur(6px);
     position: relative;
     z-index: 1;
 }
 
 .hero h2 {
     font-size: 3rem;
-    font-weight: bold;
-    color: #92400e;
-    margin-bottom: 1rem;
-    line-height: 1.2;
+    font-weight: 800;
+    color: #fff8ec;
+    margin-bottom: 1.1rem;
+    line-height: 1.15;
+    text-shadow: 0 2px 24px rgba(0, 0, 0, 0.45);
     position: relative;
     z-index: 1;
 }
@@ -271,13 +275,15 @@ nav a:hover, nav a.active {
 .hero-emoji {
     display: inline-block;
     animation: bounce 2s ease infinite;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
 }
 
 .hero p {
-    font-size: 1.25rem;
-    color: #b45309;
-    max-width: 600px;
+    font-size: 1.3rem;
+    color: #ffe8cc;
+    max-width: 620px;
     margin: 0 auto 2rem;
+    text-shadow: 0 1px 12px rgba(0, 0, 0, 0.4);
     position: relative;
     z-index: 1;
 }
@@ -295,18 +301,19 @@ nav a:hover, nav a.active {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 248, 236, 0.92);
     padding: 0.9rem 1.4rem;
-    border-radius: 1rem;
-    border: 1px solid rgba(251, 191, 36, 0.5);
-    box-shadow: 0 4px 12px rgba(146, 64, 14, 0.1);
+    border-radius: 1.1rem;
+    border: 1px solid rgba(251, 191, 36, 0.45);
+    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(6px);
     min-width: 95px;
     transition: all 0.3s ease;
 }
 
 .hero-stat:hover {
     transform: translateY(-5px);
-    box-shadow: 0 10px 22px rgba(146, 64, 14, 0.18);
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.28);
 }
 
 .hero-stat .stat-icon {
@@ -331,9 +338,11 @@ nav a:hover, nav a.active {
 
 /* Filters Section */
 .filters {
-    background: white;
-    padding: 1.5rem 1rem; 
-    border-bottom: 1px solid #e5e7eb;
+    background: rgba(255, 253, 247, 0.9);
+    padding: 1.5rem 1rem;
+    border-bottom: 1px solid rgba(251, 191, 36, 0.2);
+    box-shadow: 0 4px 20px -8px rgba(120, 53, 15, 0.1);
+    backdrop-filter: blur(10px);
     position: sticky;
     top: 70px;
     z-index: 100;
@@ -348,31 +357,40 @@ nav a:hover, nav a.active {
 }
 
 .filter-btn {
-    padding: 0.75rem 1.5rem;
-    border: 2px solid #fbbf24;
+    padding: 0.7rem 1.4rem;
+    border: 1px solid rgba(217, 119, 6, 0.35);
     background: white;
-    color: #d97706;
+    color: #b45309;
     border-radius: 2rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s;
     text-decoration: none;
+    box-shadow: 0 2px 6px rgba(120, 53, 15, 0.05);
 }
 
 .filter-btn:hover, .filter-btn.active {
-    background: #d97706;
+    background: linear-gradient(135deg, #d97706, #b45309);
     color: white;
+    border-color: transparent;
+    box-shadow: 0 6px 18px rgba(217, 119, 6, 0.35);
 }
 
 .search-box {
     display: flex;
     align-items: center;
-    background: #fffbeb;
-    border: 2px solid #fbbf24;
+    background: #fffdf7;
+    border: 1px solid rgba(217, 119, 6, 0.3);
     border-radius: 2rem;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 1.1rem;
     min-width: 250px;
+    box-shadow: 0 2px 8px rgba(120, 53, 15, 0.06);
     transition: all 0.3s ease;
+}
+
+.search-box:focus-within {
+    border-color: #d97706;
+    box-shadow: 0 4px 16px rgba(217, 119, 6, 0.2);
 }
 
 .search-emoji {
@@ -410,11 +428,11 @@ nav a:hover, nav a.active {
 
 .product-card {
     background: white;
-    border-radius: 1rem;
+    border-radius: 1.25rem;
     overflow: hidden;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     transition: all 0.3s;
-    border: 1px solid #e5e7eb;
+    border: 1px solid #f3ead9;
     cursor: pointer;
     pointer-events: auto;
     display: flex;
@@ -424,7 +442,7 @@ nav a:hover, nav a.active {
 
 .product-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 20px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 22px 40px -12px rgba(120, 53, 15, 0.3);
 }
 
 .product-image {
@@ -1489,3 +1507,186 @@ html {
         font-size: 2rem;
     }
 }
+
+/* ==========================================================
+   REFINAMIENTO PREMIUM — La Casa Del Pan (2026)
+   Capa visual añadida sobre la base. Mantiene estructura HTML.
+   ========================================================== */
+
+/* Sección de productos con más aire */
+.products-section {
+    padding: 4rem 1rem;
+    background: linear-gradient(180deg, #fffdf7 0%, #fdf6e8 100%);
+}
+
+/* Producto: imagen con zoom suave y borde inferior delgado */
+.product-image {
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.product-card:hover .product-image {
+    transform: scale(1.06);
+}
+.product-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 55%, rgba(20, 10, 4, 0.18));
+    pointer-events: none;
+}
+
+/* Contenido de producto con más aire */
+.product-content {
+    padding-top: 1.1rem;
+}
+
+/* Título del producto en tipografía de marca */
+.product-title {
+    color: #78350f;
+}
+
+/* Botón WhatsApp con tono premium definido en degradado */
+.btn-whatsapp {
+    background: linear-gradient(135deg, #25D366, #1da851);
+}
+.btn-whatsapp:hover {
+    background: linear-gradient(135deg, #1ebe5a, #158a45);
+}
+
+/* Botón primario de detalle con bordes redondeados */
+.btn-primary {
+    border-radius: 0.75rem;
+}
+
+/* Hero por defecto en pantallas pequeñas */
+@media (max-width: 768px) {
+    .hero {
+        padding: 8rem 1rem 4rem;
+    }
+}
+
+/* ==========================================================
+   ICONOS SVG - estilos para los iconos vectoriales
+   ========================================================== */
+
+/* Iconos en contenedores circulares */
+.logo-icon svg,
+.category-icon svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: #92400e;
+}
+.category-icon svg {
+    width: 2.2rem;
+    height: 2.2rem;
+    color: #92400e;
+}
+
+/* Icono del hero badge en tinta clara sobre fondo oscuro */
+.hero-badge svg {
+    width: 1.05rem;
+    height: 1.05rem;
+    margin-right: 0.4rem;
+    vertical-align: -0.15em;
+    color: #7c2d12;
+}
+
+/* Iconos de stats del hero */
+.hero-stat .stat-icon svg {
+    width: 1.6rem;
+    height: 1.6rem;
+    color: #b45309;
+}
+
+/* Icono de búsqueda */
+.search-emoji svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    color: #b45309;
+    margin-right: 0.5rem;
+    display: inline-block;
+}
+
+/* Icono del toggle de filtros y su texto */
+.filters-toggle svg {
+    width: 1.1rem;
+    height: 1.1rem;
+    margin-right: 0.4rem;
+    vertical-align: -0.15em;
+}
+
+/* Iconos en botones */
+.btn-emoji {
+    width: 1.1rem;
+    height: 1.1rem;
+    margin-right: 0.4rem;
+    vertical-align: -0.18em;
+}
+
+/* Ícono del botón carrito */
+.cart-button svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    color: currentColor;
+}
+
+/* Iconos de navegacion */
+nav a svg {
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.4rem;
+    vertical-align: -0.15em;
+    color: currentColor;
+}
+
+/* Iconos de botones de cerrar (carrito y modal) */
+.close-cart svg,
+.modal-close svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: currentColor;
+}
+.modal-close svg {
+    width: 1.1rem;
+    height: 1.1rem;
+}
+
+/* Carga diferida de imágenes de producto */
+.product-image.lazy {
+    background-image: none;
+    transition: background-color 0.3s ease;
+}
+.product-image.lazy.loaded {
+    background-size: cover;
+    background-position: center;
+    animation: lazyFadeIn 0.4s ease;
+}
+
+@keyframes lazyFadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* ==========================================================
+   OPTIMIZACION DE RENDIMIENTO
+   ========================================================== */
+
+/* Solo renderizar la grilla de productos cuando se acerca al viewport */
+.products-section {
+    content-visibility: auto;
+    contain-intrinsic-size: auto 1200px;
+}
+
+/* Limitar propagacion de layout del header/carrito flotantes */
+header {
+    will-change: transform;
+}
+
+/* Hover con transform (sin reflow) en tarjetas */
+.product-card {
+    will-change: transform;
+}
+

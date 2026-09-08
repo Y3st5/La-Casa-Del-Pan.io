@@ -1,19 +1,19 @@
 // Catálogo de categorías para generar dinámicamente
 const CATEGORIAS = {
     panes: {
-        icono: '🍞',
+        icono: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4a6 6 0 0 0 12 0 6 6 0 0 0-12 0"/><path d="M3 20c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2"/><path d="M3 20a9 9 0 0 1 6-17"/></svg>',
         titulo: 'Panes Frescos',
-        descripcion: 'Horneados diariamente con ingredientes naturales ✨'
+        descripcion: 'Horneados diariamente con ingredientes naturales'
     },
     bolleria: {
-        icono: '🥐',
+        icono: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8"/><line x1="12" y1="8" x2="12" y2="14"/><line x1="12" y1="14" x2="8" y2="14"/><line x1="12" y1="14" x2="16" y2="14"/></svg>',
         titulo: 'Cafetería',
-        descripcion: 'Dulces y salados recién horneados ☕'
+        descripcion: 'Dulces y salados recién horneados'
     },
     pasteles: {
-        icono: '🎂',
+        icono: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>',
         titulo: 'Pasteles y Postres',
-        descripcion: 'Para ocasiones especiales 💝'
+        descripcion: 'Para ocasiones especiales'
     }
 };
 
@@ -28,7 +28,7 @@ async function cargarProductos() {
         console.error('Error al cargar productos:', error);
         document.getElementById('productsContainer').innerHTML = `
             <div class="empty-state">
-                <h3>😔 Error al cargar productos</h3>
+                <h3>Error al cargar productos</h3>
                 <p>No pudimos cargar los productos. Por favor, intenta de nuevo más tarde.</p>
             </div>
         `;
@@ -50,7 +50,7 @@ function renderizarProductos(productos) {
 
     // Generar HTML por cada categoría
     for (const [cat, prods] of Object.entries(categorias)) {
-        const info = CATEGORIAS[cat] || { icono: '📦', titulo: cat, descripcion: '' };
+        const info = CATEGORIAS[cat] || { icono: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><line x1="6" y1="6" x2="6.01" y2="6"/><line x1="6" y1="18" x2="6.01" y2="18"/></svg>', titulo: cat, descripcion: '' };
         html += `
             <div class="category-section" data-category="${cat}">
                 <div class="category-header">
@@ -71,17 +71,19 @@ function renderizarProductos(productos) {
 
     // Asignar eventos a las tarjetas y botones
     asignarEventosProductos();
+    // Cargar imágenes de forma diferida (lazy) para mejor rendimiento
+    inicializarLazyLoading();
 }
 
 // Generar HTML de una tarjeta de producto
 function generarTarjetaProducto(p) {
     const estrellas = generarEstrellas(p.rating);
-    const badgeHtml = p.badge ? `<span class="product-badge ${p.badge}">${p.badge === 'popular' ? '🔥 Popular' : '✨ Nuevo'}</span>` : '';
+    const badgeHtml = p.badge ? `<span class="product-badge ${p.badge}">${p.badge === 'popular' ? 'Popular' : 'Nuevo'}</span>` : '';
     const nombreCategoria = p.categoria.charAt(0).toUpperCase() + p.categoria.slice(1);
 
     return `
         <div class="product-card" data-category="${p.categoria}">
-            <div class="product-image" style="background-image: url('${p.imagen_url}')">
+            <div class="product-image lazy" data-src="${p.imagen_url}" style="background-color: var(--lazy-bg, #f3e8d6);">
                 ${badgeHtml}
             </div>
             <div class="product-content">
@@ -102,7 +104,7 @@ function generarTarjetaProducto(p) {
                         data-price="${p.precio}"
                         data-price-display="${p.precio_display}"
                         data-image="${p.imagen_url}">
-                        <span class="btn-emoji">🛒</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-emoji" aria-hidden="true"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
                         Agregar al Carrito
                     </button>
                 </div>
@@ -145,6 +147,40 @@ function asignarEventosProductos() {
             }
         });
     });
+}
+
+// Carga diferida (lazy loading) de imágenes de producto con IntersectionObserver
+let lazyObserver = null;
+
+function inicializarLazyLoading() {
+    const images = document.querySelectorAll('.product-image.lazy');
+    if (!images.length) return;
+
+    // Si el navegador no soporta IntersectionObserver, cargar todo inmediatamente
+    if (!('IntersectionObserver' in window)) {
+        images.forEach(cargarImagenLazy);
+        return;
+    }
+
+    if (!lazyObserver) {
+        lazyObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    cargarImagenLazy(entry.target);
+                    lazyObserver.unobserve(entry.target);
+                }
+            });
+        }, { rootMargin: '400px 0px', threshold: 0.01 });
+    }
+
+    images.forEach(img => lazyObserver.observe(img));
+}
+
+function cargarImagenLazy(el) {
+    const src = el.dataset.src;
+    if (!src || el.style.backgroundImage.includes(src)) return;
+    el.style.backgroundImage = `url('${src}')`;
+    el.classList.add('loaded');
 }
 
 // Menú hamburguesa responsivo para navegación
@@ -256,7 +292,7 @@ function updateCartUI() {
     cartItemsElement.innerHTML = '';
     
     if (cart.length === 0) {
-        cartItemsElement.innerHTML = '<p style="text-align: center; color: #6b7280; padding: 2rem;">🛒 Tu carrito está vacío. ¡Agrega algo delicioso!</p>';
+        cartItemsElement.innerHTML = '<p style="text-align: center; color: #6b7280; padding: 2rem;">Tu carrito está vacío. ¡Agrega algo delicioso!</p>';
     } else {
         cart.forEach(item => {
             const cartItem = document.createElement('div');
@@ -270,7 +306,7 @@ function updateCartUI() {
                         <button class="quantity-btn" onclick="updateQuantity('${item.id}', ${item.quantity - 1})">-</button>
                         <input type="number" class="quantity" value="${item.quantity}" min="1" onchange="updateQuantity('${item.id}', parseInt(this.value))">
                         <button class="quantity-btn" onclick="updateQuantity('${item.id}', ${item.quantity + 1})">+</button>
-                        <button class="quantity-btn" onclick="removeFromCart('${item.id}')" style="margin-left: 0.5rem; color: #dc2626;">🗑️</button>
+                        <button class="quantity-btn" onclick="removeFromCart('${item.id}')" style="margin-left: 0.5rem; color: #dc2626;">✕</button>
                     </div>
                 </div>
             `;
@@ -365,30 +401,41 @@ function aplicarBusqueda(termino) {
     });
 }
 
+// Debounce para la búsqueda: evitar re-render en cada tecla
+let searchTimer = null;
 searchInput.addEventListener('input', function() {
-    aplicarBusqueda(this.value);
+    clearTimeout(searchTimer);
+    searchTimer = setTimeout(function() {
+        aplicarBusqueda(searchInput.value);
+    }, 150);
 });
 
-// Scroll listener for header shadow
+// Scroll listener for header shadow (pasivo + throttled con rAF para fluidez)
 window.addEventListener('scroll', function() {
-    const header = document.querySelector('header');
-    if (window.scrollY > 50) {
-        header.classList.add('scrolled');
-    } else {
-        header.classList.remove('scrolled');
-    }
-});
+    if (window._scrollTicking) return;
+    window._scrollTicking = true;
+    requestAnimationFrame(function() {
+        const header = document.querySelector('header');
+        if (window.scrollY > 50) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+        window._scrollTicking = false;
+    });
+}, { passive: true });
 
 // Filters toggle for mobile
 const filtersToggle = document.getElementById('filtersToggle');
 const filtersContent = document.getElementById('filtersContent');
+const filtersToggleText = document.getElementById('filtersToggleText');
 
 if (filtersToggle && filtersContent) {
     filtersToggle.addEventListener('click', function(e) {
         e.stopPropagation();
         const isOpen = filtersContent.classList.toggle('open');
         filtersToggle.classList.toggle('open', isOpen);
-        filtersToggle.textContent = isOpen ? '✕ Cerrar Filtros' : '☰ Filtrar Productos';
+        if (filtersToggleText) filtersToggleText.textContent = isOpen ? 'Cerrar Filtros' : 'Filtrar Productos';
     });
 
     // Cerrar el panel al hacer clic fuera
@@ -396,7 +443,7 @@ if (filtersToggle && filtersContent) {
         if (!filtersContent.contains(e.target) && !filtersToggle.contains(e.target)) {
             filtersContent.classList.remove('open');
             filtersToggle.classList.remove('open');
-            filtersToggle.textContent = '☰ Filtrar Productos';
+            if (filtersToggleText) filtersToggleText.textContent = 'Filtrar Productos';
         }
     });
 
@@ -406,7 +453,7 @@ if (filtersToggle && filtersContent) {
             if (window.innerWidth <= 768) {
                 filtersContent.classList.remove('open');
                 filtersToggle.classList.remove('open');
-                filtersToggle.textContent = '☰ Filtrar Productos';
+                if (filtersToggleText) filtersToggleText.textContent = 'Filtrar Productos';
             }
         });
     });
@@ -498,8 +545,13 @@ let currentProduct = null;
 
 // Open modal with product data
 function openProductModal(card) {
+    const imgEl = card.querySelector('.product-image');
+    // Si la imagen aún no se cargó (lazy), cargarla antes de abrir el modal
+    if (imgEl && imgEl.classList.contains('lazy')) {
+        cargarImagenLazy(imgEl);
+    }
     // Get product data from card
-    const imageStyle = card.querySelector('.product-image').style.backgroundImage;
+    const imageStyle = imgEl.style.backgroundImage;
     // Fix the URL extraction - remove url("...") wrapper
     let image = imageStyle.replace(/url\(/g, '').replace(/"/g, '').replace(/\)/g, '');
     
@@ -617,7 +669,7 @@ modalAddToCart.addEventListener('click', function() {
 
         // Show feedback
         const originalText = this.innerHTML;
-        this.innerHTML = '<span class="btn-emoji">✅</span> ¡Agregado!';
+        this.innerHTML = '✓ ¡Agregado!';
         this.style.background = '#059669';
 
         setTimeout(() => {
