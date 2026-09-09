@@ -19,20 +19,26 @@ const CATEGORIAS = {
 
 // Cargar productos desde JSON
 async function cargarProductos() {
+    const container = document.getElementById('productsContainer');
+    const infoEl = document.getElementById('productsInfo');
     try {
         const respuesta = await fetch('productos.json');
         const productos = await respuesta.json();
         renderizarProductos(productos);
+        if (infoEl) infoEl.textContent = `${productos.length} productos artesanales disponibles`;
         return productos;
     } catch (error) {
         console.error('Error al cargar productos:', error);
-        document.getElementById('productsContainer').innerHTML = `
+        container.innerHTML = `
             <div class="empty-state">
                 <h3>Error al cargar productos</h3>
                 <p>No pudimos cargar los productos. Por favor, intenta de nuevo más tarde.</p>
             </div>
         `;
         return [];
+    } finally {
+        const skeleton = document.getElementById('loadingSkeleton');
+        if (skeleton) skeleton.remove();
     }
 }
 
@@ -73,6 +79,8 @@ function renderizarProductos(productos) {
     asignarEventosProductos();
     // Cargar imágenes de forma diferida (lazy) para mejor rendimiento
     inicializarLazyLoading();
+    // Animación stagger: las tarjetas aparecen una por una
+    animarTarjetasProgresivas();
 }
 
 // Generar HTML de una tarjeta de producto
@@ -183,6 +191,37 @@ function cargarImagenLazy(el) {
     el.classList.add('loaded');
 }
 
+// Animación de entrada escalonada (stagger) para las tarjetas de producto.
+// Se activa solo al cargar inicialmente (respeta prefers-reduced-motion).
+function animarTarjetasProgresivas() {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const cards = document.querySelectorAll('.product-card');
+    if (reduceMotion) {
+        cards.forEach(card => card.classList.add('card-visible'));
+        return;
+    }
+    // Cerrar observador anterior si existiera
+    if (window.__staggerObserver) window.__staggerObserver.disconnect();
+    const observer = new IntersectionObserver((entries, obs) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const card = entry.target;
+                const idx = Array.prototype.indexOf.call(cards, card);
+                card.style.transitionDelay = `${Math.min(idx * 40, 300)}ms`;
+                card.classList.add('card-visible');
+                obs.unobserve(card);
+            }
+        });
+    }, { threshold: 0.1 });
+    window.__staggerObserver = observer;
+    // Reiniciar el estado antes de animar
+    cards.forEach(card => {
+        card.classList.remove('card-visible');
+        card.style.transitionDelay = '0ms';
+        observer.observe(card);
+    });
+}
+
 // Menú hamburguesa responsivo para navegación
 const menuToggle = document.getElementById('menuToggle');
 const mainNav = document.getElementById('mainNav');
@@ -255,12 +294,18 @@ function addToCart(product) {
         void cartBtn.offsetWidth;
         cartBtn.classList.add('bump');
     }
+
+    const nombre = product && product.name ? product.name : 'Producto';
+    showToast(`${nombre} agregado al carrito`);
 }
+
 // Exponer la función globalmente para uso en HTML
 function removeFromCart(productId) {
+    const item = cart.find(i => i.id === productId);
     cart = cart.filter(item => item.id !== productId);
     guardarCarrito();
     updateCartUI();
+    if (item) showToast(`${item.name} eliminado del carrito`, 'error');
 }
 window.removeFromCart = removeFromCart;
 
@@ -354,12 +399,34 @@ document.addEventListener('mousedown', (e) => {
 // Filter functionality (usa querySelectorAll dinámico para elementos generados)
 function aplicarFiltro(categoria) {
     const secciones = document.querySelectorAll('.category-section');
+    const container = document.getElementById('productsContainer');
+    
+    // Limpiar estado vacío previo de búsqueda
+    const noResults = container.querySelector('.no-results');
+    if (noResults) noResults.remove();
+    
+    let primeraVisible = null;
     if (categoria === 'todos') {
         secciones.forEach(s => s.style.display = 'block');
     } else {
         secciones.forEach(s => {
             s.style.display = s.dataset.category === categoria ? 'block' : 'none';
+            if (s.style.display === 'block' && !primeraVisible) primeraVisible = s;
         });
+    }
+    
+    // Actualizar contador de productos según filtro
+    if (productsInfoEl) {
+        const tarjetasVisibles = document.querySelectorAll('.product-card:not([style*="none"])');
+        productsInfoEl.textContent = `${tarjetasVisibles.length} producto${tarjetasVisibles.length === 1 ? '' : 's'} disponibles`;
+    }
+    
+    // Smooth scroll a la categoría seleccionada (solo en desktop, y si hay búsqueda vacía)
+    const searchValue = searchInput ? searchInput.value.trim() : '';
+    if (categoria !== 'todos' && primeraVisible && !searchValue) {
+        setTimeout(() => {
+            primeraVisible.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 50);
     }
 }
 
@@ -373,18 +440,30 @@ document.querySelectorAll('.filter-btn').forEach(button => {
 });
 
 // Search functionality (usa querySelectorAll dinámico)
+const productsInfoEl = document.getElementById('productsInfo');
+
 function aplicarBusqueda(termino) {
     const tarjetas = document.querySelectorAll('.product-card');
     const secciones = document.querySelectorAll('.category-section');
     const searchLower = termino.toLowerCase();
+    const container = document.getElementById('productsContainer');
+    
+    // Limpiar estado vacío previo
+    const noResults = container.querySelector('.no-results');
+    if (noResults) noResults.remove();
     
     if (!searchLower) {
         // Mostrar todo si no hay búsqueda
         tarjetas.forEach(c => c.style.display = 'block');
         secciones.forEach(s => s.style.display = 'block');
+        if (productsInfoEl) {
+            const total = tarjetas.length;
+            productsInfoEl.textContent = `${total} productos artesanales disponibles`;
+        }
         return;
     }
     
+    let contador = 0;
     tarjetas.forEach(card => {
         const title = card.querySelector('.product-title').textContent.toLowerCase();
         const description = card.querySelector('.product-description').textContent.toLowerCase();
@@ -392,6 +471,7 @@ function aplicarBusqueda(termino) {
         
         const visible = title.includes(searchLower) || description.includes(searchLower) || category.includes(searchLower);
         card.style.display = visible ? 'block' : 'none';
+        if (visible) contador++;
     });
     
     // Mostrar/ocultar secciones según productos visibles
@@ -399,6 +479,33 @@ function aplicarBusqueda(termino) {
         const visibleProducts = section.querySelectorAll('.product-card:not([style*="none"])');
         section.style.display = visibleProducts.length > 0 ? 'block' : 'none';
     });
+    
+    if (productsInfoEl) {
+        productsInfoEl.textContent = contador > 0
+            ? `${contador} resultado${contador === 1 ? '' : 's'} para "${termino}"`
+            : '';
+    }
+    
+    // Estado vacío cuando no hay resultados
+    if (contador === 0) {
+        const emptyHtml = `
+            <div class="no-results">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <h3>Sin resultados</h3>
+                <p>No encontramos productos que coincidan con "${termino}". Intenta con otra búsqueda.</p>
+                <button class="btn btn-primary" id="clearSearchBtn">Ver todos los productos</button>
+            </div>
+        `;
+        container.insertAdjacentHTML('beforeend', emptyHtml);
+        const clearBtn = container.querySelector('#clearSearchBtn');
+        clearBtn.addEventListener('click', function() {
+            const input = document.getElementById('searchInput');
+            if (input) input.value = '';
+            aplicarFiltro(document.querySelector('.filter-btn.active').dataset.category);
+            aplicarBusqueda('');
+            input.focus();
+        });
+    }
 }
 
 // Debounce para la búsqueda: evitar re-render en cada tecla
@@ -683,3 +790,59 @@ modalAddToCart.addEventListener('click', function() {
         }, 500);
     }
 });
+
+// ==========================================
+// NUEVAS MEJORAS 2026
+// ==========================================
+
+// Botón "Volver arriba": aparece al hacer scroll, vuelve suavemente al inicio
+const backToTop = document.getElementById('backToTop');
+if (backToTop) {
+    window.addEventListener('scroll', function() {
+        if (window._scrollTickingBack) return;
+        window._scrollTickingBack = true;
+        requestAnimationFrame(function() {
+            backToTop.classList.toggle('visible', window.scrollY > 400);
+            window._scrollTickingBack = false;
+        });
+    }, { passive: true });
+
+    backToTop.addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+}
+
+// Compartir producto desde el modal (Web Share API + fallback de portapapeles)
+const modalShare = document.getElementById('modalShare');
+if (modalShare) {
+    modalShare.addEventListener('click', async function() {
+        if (!currentProduct) return;
+        const titulo = currentProduct.name;
+        const texto = `🍞 ${titulo} — ¡Míralo en La Casa Del Pan!`;
+        const url = window.location.href.split('#')[0];
+
+        const shareData = {
+            title: `${titulo} | La Casa Del Pan`,
+            text: texto,
+            url: url
+        };
+
+        try {
+            if (navigator.share && window.matchMedia('(max-width: 768px)').matches) {
+                await navigator.share(shareData);
+                return;
+            }
+        } catch (e) {
+            // El usuario canceló o falló el share nativo; ignorar
+            return;
+        }
+
+        // Fallback: copiar al portapapeles
+        try {
+            await navigator.clipboard.writeText(`${titulo} — ${url}`);
+            showToast('Enlace copiado al portapapeles');
+        } catch (e) {
+            showToast('No se pudo copiar el enlace', 'error');
+        }
+    });
+}

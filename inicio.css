@@ -29,15 +29,13 @@ h1, h2, h3, h4, .logo h1, .section-title h3, .hero h2, .about-text h3 {
 
 /* Header */
 header {
-    background: rgba(255, 252, 245, 0.85);
+    background: rgba(255, 252, 245, 0.92);
     box-shadow: 0 1px 0 rgba(120, 53, 15, 0.08), 0 8px 30px rgba(120, 53, 15, 0.06);
     border-bottom: 1px solid rgba(251, 191, 36, 0.25);
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 1000;
-    backdrop-filter: blur(14px);
-    -webkit-backdrop-filter: blur(14px);
     transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
@@ -1350,15 +1348,11 @@ footer a svg {
     contain-intrinsic-size: auto 900px;
 }
 
-/* Limitar propagacion de layout del header flotante */
-header {
-    will-change: transform;
-}
-
-/* Las features del hero usan transform para hover (sin reflow) */
+/* Hover con transform en features/cards compuesto por la GPU (sin will-change
+   persistente que multiplicaba las capas de composición). */
 .hero-feature,
 .info-card,
 .product-card {
-    will-change: transform;
+    transform: translateZ(0);
 }
 

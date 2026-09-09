@@ -20,12 +20,15 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=70" fetchpriority="high">
+    <link rel="preload" as="image" href="https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=70" fetchpriority="high" imagesrcset="https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=70 800w, https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=70 1200w" imagesizes="100vw">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
     
     <link rel="stylesheet" href="catalogo.css">
 </head>
 <body>
+    <!-- Skip to content (accesibilidad) -->
+    <a href="#productsSection" class="skip-link">Saltar al contenido</a>
+
     <!-- Header -->
     <header>
         <div class="container">
@@ -78,7 +81,7 @@
     <!-- Filters -->
     <section class="filters">
         <div class="container">
-            <button class="filters-toggle" id="filtersToggle"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg> <span id="filtersToggleText">Filtrar Productos</span></button>
+            <button class="filters-toggle" id="filtersToggle" aria-expanded="false" aria-controls="filtersContent"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/></svg> <span id="filtersToggleText">Filtrar Productos</span></button>
             <div class="filters-content" id="filtersContent">
                 <button class="filter-btn active" data-category="todos">Todos</button>
                 <button class="filter-btn" data-category="panes">Panes</button>
@@ -95,15 +98,24 @@
 
     <!-- Products Section -->
     <section class="products-section" id="productsSection">
+        <div class="products-info" id="productsInfo" aria-live="polite"></div>
         <div class="container" id="productsContainer">
-            <div class="loading" id="loadingProducts">
-                <p>Cargando productos deliciosos...</p>
+            <div class="loading" id="loadingSkeleton">
+                <!-- Skeleton loading states -->
+                <div class="skeleton-grid">
+                    <div class="skeleton-card"><div class="skeleton skeleton-image"></div><div class="skeleton skeleton-line w-60"></div><div class="skeleton skeleton-line w-90"></div><div class="skeleton skeleton-line w-40"></div></div>
+                    <div class="skeleton-card"><div class="skeleton skeleton-image"></div><div class="skeleton skeleton-line w-60"></div><div class="skeleton skeleton-line w-90"></div><div class="skeleton skeleton-line w-40"></div></div>
+                    <div class="skeleton-card"><div class="skeleton skeleton-image"></div><div class="skeleton skeleton-line w-60"></div><div class="skeleton skeleton-line w-90"></div><div class="skeleton skeleton-line w-40"></div></div>
+                    <div class="skeleton-card"><div class="skeleton skeleton-image"></div><div class="skeleton skeleton-line w-60"></div><div class="skeleton skeleton-line w-90"></div><div class="skeleton skeleton-line w-40"></div></div>
+                    <div class="skeleton-card"><div class="skeleton skeleton-image"></div><div class="skeleton skeleton-line w-60"></div><div class="skeleton skeleton-line w-90"></div><div class="skeleton skeleton-line w-40"></div></div>
+                    <div class="skeleton-card"><div class="skeleton skeleton-image"></div><div class="skeleton skeleton-line w-60"></div><div class="skeleton skeleton-line w-90"></div><div class="skeleton skeleton-line w-40"></div></div>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Cart Button -->
-    <button class="cart-button" id="cartButton">
+    <button class="cart-button" id="cartButton" aria-label="Abrir carrito">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
         <span class="cart-count" id="cartCount">0</span>
     </button>
@@ -141,14 +153,22 @@
         </div>
     </div>
 
+    <!-- Volver arriba -->
+    <button class="back-to-top" id="backToTop" aria-label="Volver arriba">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg>
+    </button>
+
     <!-- Product Modal -->
     <div class="product-modal" id="productModal">
         <div class="modal-overlay" id="modalOverlay"></div>
-        <div class="modal-container">
+            <div class="modal-container" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+            <button class="modal-share" id="modalShare" aria-label="Compartir producto">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+            </button>
             <button class="modal-close" id="modalClose"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
             <div class="modal-content">
                 <div class="modal-image">
-                    <img id="modalProductImage" src="" alt="">
+                    <img id="modalProductImage" src="" alt="" loading="lazy" decoding="async">
                     <span class="modal-badge" id="modalBadge"></span>
                 </div>
                 <div class="modal-details">
@@ -160,9 +180,9 @@
                     <div class="modal-quantity">
                         <label for="modalQuantityInput">Cantidad:</label>
                         <div class="quantity-selector">
-                            <button class="qty-btn" id="qtyMinus">-</button>
-                            <input type="number" id="modalQuantityInput" value="1" min="1" max="99">
-                            <button class="qty-btn" id="qtyPlus">+</button>
+                            <button class="qty-btn" id="qtyMinus" aria-label="Disminuir cantidad">-</button>
+                            <input type="number" id="modalQuantityInput" value="1" min="1" max="99" aria-label="Cantidad">
+                            <button class="qty-btn" id="qtyPlus" aria-label="Aumentar cantidad">+</button>
                         </div>
                     </div>
                     <button class="btn btn-primary modal-add-to-cart" id="modalAddToCart">
@@ -175,5 +195,15 @@
     </div>
 
     <script src="catalogo.js"></script>
+    <script>
+        // Registrar Service Worker (solo en HTTPS o localhost) para soporte offline
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('sw.js').catch(function(err) {
+                    console.warn('Service Worker no pudo registrarse:', err);
+                });
+            });
+        }
+    </script>
 </body>
 </html>
