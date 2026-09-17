@@ -152,6 +152,17 @@
     "rating": 4.7,
     "badge": null,
     "imagen_url": "https://images.unsplash.com/photo-1572837663132-76c0ccd9cb6f?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80"
-  }
+  },
+  {
+  "id": 15,
+  "nombre": "Pan de Queso",
+  "categoria": "panes",
+  "descripcion": "Pan esponjoso relleno de queso, horneado al momento.",
+  "precio": 1.20,
+  "precio_display": "S/1.20",
+  "rating": 4.8,
+  "badge": "nuevo",
+  "imagen_url": "img/PanQueso.jpg"
+}
 ]
 

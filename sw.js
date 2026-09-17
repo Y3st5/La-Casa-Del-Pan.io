@@ -1,15 +1,20 @@
 // Service Worker — La Casa Del Pan
 // Estrategia: cache-first con revalidación en segundo plano (stale-while-revalidate)
-const CACHE_NAME = 'lacasadepan-v1';
+const CACHE_NAME = 'lacasadepan-v2';
 const CORE_ASSETS = [
     './',
     './index.html',
     './catalogo.html',
-    './catalogo.css',
-    './catalogo.js',
-    './inicio.css',
-    './inicio.js',
-    './productos.json'
+    './css/shared.css',
+    './css/catalogo.css',
+    './css/inicio.css',
+    './js/shared.js',
+    './js/catalogo.js',
+    './js/inicio.js',
+    './productos.json',
+    './img/Croissants.jpg',
+    './img/TortaChocolate.jpg',
+    './img/Empanadas.jpg'
 ];
 
 // Instalación: precargar los recursos básicos

@@ -5,56 +5,8 @@
 document.addEventListener('DOMContentLoaded', () => {
 
     // ------------------------------------------
-    // 0. Toast / Notificaciones
-    // ------------------------------------------
-    const showToast = (message, type = 'success') => {
-        // Crear contenedor si no existe
-        let container = document.querySelector('.toast-container');
-        if (!container) {
-            container = document.createElement('div');
-            container.className = 'toast-container';
-            document.body.appendChild(container);
-        } 
-        const icon = type === 'success' ? '✓' : '✕';
-        const toast = document.createElement('div');
-        toast.className = `toast toast-${type}`;
-        toast.innerHTML = `
-            <span class="toast-icon">${icon}</span>
-            <span>${message}</span>
-            <button class="toast-close" aria-label="Cerrar notificación">&times;</button>
-        `;
-
-        // Botón cerrar manual
-        toast.querySelector('.toast-close').addEventListener('click', () => {
-            removeToast(toast);
-        });
-
-        container.appendChild(toast);
-
-        // Auto-eliminar después de 4.5s
-        setTimeout(() => {
-            if (toast.isConnected) {
-                removeToast(toast);
-            }
-        }, 4500);
-    };
-
-    const removeToast = (toast) => {
-        toast.classList.add('toast-out');
-        setTimeout(() => {
-            if (toast.isConnected) {
-                toast.remove();
-            }
-            // Limpiar contenedor vacío
-            const container = document.querySelector('.toast-container');
-            if (container && container.children.length === 0) {
-                container.remove();
-            }
-        }, 350);
-    };
-
-    // ------------------------------------------
-    // 1. Menú móvil accesible
+    // 0. Menú móvil accesible
+    // (showToast/removeToast viven en shared.js)
     // ------------------------------------------
     const menuToggle = document.getElementById('menuToggle');
     const mainNav = document.getElementById('mainNav');
