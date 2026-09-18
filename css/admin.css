@@ -21,8 +21,10 @@
     transform: translateX(-50%);
     max-width: 1200px;
     z-index: 1000;
-    height: auto;
-    min-height: 4.5rem;
+    
+    /* CAMBIO: Usar min-height en lugar de una variable fija que lo aplasta */
+    height: auto; 
+    min-height: 4.5rem; 
     border-radius: 1rem;
 }
 
@@ -31,9 +33,7 @@
     justify-content: space-between;
     align-items: center;
     height: 100%;
-    
-    /* CAMBIO: Agregar padding vertical (1rem) en lugar de 0 */
-    padding: 1rem 2rem; 
+    padding: 0 2rem;
 }
 
 .admin-header .logo {
