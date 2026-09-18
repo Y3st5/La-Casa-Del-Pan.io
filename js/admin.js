@@ -326,55 +326,84 @@ function populateForm(product) {
 }
 
 // ============================================
-// PREVISUALIZACIÓN EN TIEMPO REAL
+// PREVISUALIZACIÓN EN TIEMPO REAL (optimizada con debounce)
 // ============================================
+let previewDebounceTimer = null;
+
 function updatePreview() {
-    const name = document.getElementById('productName').value || 'Nombre del producto';
-    const category = document.getElementById('productCategory').value;
-    const desc = document.getElementById('productDescription').value || 'Descripción del producto...';
-    const priceDisplay = document.getElementById('productPriceDisplay').value || 'S/0.00';
-    const rating = parseFloat(document.getElementById('productRating').value) || 0;
-    const badge = document.getElementById('productBadge').value;
-    const imageUrl = document.getElementById('productImage').value;
+    const name = elements.productName?.value || 'Nombre del producto';
+    const category = elements.productCategory?.value;
+    const desc = elements.productDescription?.value || 'Descripción del producto...';
+    const priceDisplay = elements.productPriceDisplay?.value || 'S/0.00';
+    const rating = parseFloat(elements.productRating?.value) || 0;
+    const badge = elements.productBadge?.value;
+    const imageUrl = elements.productImage?.value;
 
-    elements.previewName.textContent = name;
-    elements.previewCategory.textContent = category ? category.charAt(0).toUpperCase() + category.slice(1) : 'Categoría';
-    elements.previewDesc.textContent = desc;
-    elements.previewPrice.textContent = priceDisplay;
+    // Solo actualizar si el valor cambió (evita re-renders innecesarios)
+    if (elements.previewName.textContent !== name) elements.previewName.textContent = name;
+    
+    const catText = category ? category.charAt(0).toUpperCase() + category.slice(1) : 'Categoría';
+    if (elements.previewCategory.textContent !== catText) elements.previewCategory.textContent = catText;
+    
+    if (elements.previewDesc.textContent !== desc) elements.previewDesc.textContent = desc;
+    if (elements.previewPrice.textContent !== priceDisplay) elements.previewPrice.textContent = priceDisplay;
 
-    // Rating stars
+    // Rating stars - solo reconstruir si cambió el rating
     const fullStars = Math.round(rating);
-    let starsHtml = '';
-    for (let i = 0; i < 5; i++) {
-        starsHtml += `<div class="star ${i >= fullStars ? 'empty' : ''}"></div>`;
+    const currentStars = elements.previewRating.querySelectorAll('.star:not(.empty)').length;
+    if (currentStars !== fullStars || elements.previewRating.querySelector('.rating-value')?.textContent !== rating.toFixed(1)) {
+        let starsHtml = '';
+        for (let i = 0; i < 5; i++) {
+            starsHtml += `<div class="star ${i >= fullStars ? 'empty' : ''}"></div>`;
+        }
+        starsHtml += `<span class="rating-value">${rating.toFixed(1)}</span>`;
+        elements.previewRating.innerHTML = starsHtml;
     }
-    starsHtml += `<span class="rating-value">${rating.toFixed(1)}</span>`;
-    elements.previewRating.innerHTML = starsHtml;
 
     // Badge
     if (badge) {
-        elements.previewBadge.textContent = badge;
-        elements.previewBadge.className = 'preview-badge ' + badge;
-        elements.previewBadge.hidden = false;
-    } else {
+        if (elements.previewBadge.textContent !== badge || elements.previewBadge.className !== 'preview-badge ' + badge) {
+            elements.previewBadge.textContent = badge;
+            elements.previewBadge.className = 'preview-badge ' + badge;
+            elements.previewBadge.hidden = false;
+        }
+    } else if (!elements.previewBadge.hidden) {
         elements.previewBadge.hidden = true;
     }
 
-    // Image
-    if (imageUrl) {
-        elements.previewCardImage.style.backgroundImage = `url('${imageUrl}')`;
-    } else {
-        elements.previewCardImage.style.backgroundImage = 'none';
+    // Image - solo actualizar si cambió la URL
+    const currentBg = elements.previewCardImage.style.backgroundImage;
+    const newBg = imageUrl ? `url('${imageUrl}')` : 'none';
+    if (currentBg !== newBg) {
+        elements.previewCardImage.style.backgroundImage = newBg;
     }
 }
 
-// Escuchar cambios en el formulario para preview en vivo
+function schedulePreviewUpdate() {
+    clearTimeout(previewDebounceTimer);
+    previewDebounceTimer = setTimeout(updatePreview, 80);
+}
+
+// Escuchar cambios en el formulario para preview en vivo (con debounce)
 ['productName', 'productCategory', 'productDescription', 'productPriceDisplay', 'productRating', 'productBadge', 'productImage'].forEach(id => {
     const el = document.getElementById(id);
     if (el) {
-        el.addEventListener('input', updatePreview);
-        el.addEventListener('change', updatePreview);
+        // input para texto/number con debounce, change para selects (inmediato)
+        el.addEventListener('input', schedulePreviewUpdate);
+        el.addEventListener('change', () => {
+            clearTimeout(previewDebounceTimer);
+            updatePreview();
+        });
     }
+});
+
+// Referencias directas a elementos para evitar querySelector repetido
+const previewElements = [
+    'productName', 'productCategory', 'productDescription', 
+    'productPriceDisplay', 'productRating', 'productBadge', 'productImage'
+];
+previewElements.forEach(id => {
+    elements[id] = document.getElementById(id);
 });
 
 // ============================================
