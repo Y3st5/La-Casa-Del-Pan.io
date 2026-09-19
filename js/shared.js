@@ -1,9 +1,49 @@
 // ============================================
 // shared.js — La Casa Del Pan
-// Utilidades comunes a todas las páginas
+// Utilidades comunes a todas las páginas:
+// toasts, escape HTML, debounce/throttle.
 // ============================================
 
-// Toast / Notificaciones
+// ---------- Utilidades base ----------
+
+// Escapa texto para evitar inyección de HTML/XSS.
+// Se usa en toda interpolación de datos (admin, catálogo, carrito).
+function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text == null ? '' : String(text);
+    return div.innerHTML;
+}
+
+// Debounce: retrasa la ejecución hasta que se deje de llamar `ms` ms.
+// Devuelve una función que preserva `this` y args.
+function debounce(fn, ms = 150) {
+    let timer = null;
+    return function (...args) {
+        clearTimeout(timer);
+        timer = setTimeout(() => fn.apply(this, args), ms);
+    };
+}
+
+// Throttle: ejecuta como máximo una vez cada `ms` ms (con requestAnimationFrame opcional).
+function throttle(fn, ms = 100) {
+    let waiting = false;
+    return function (...args) {
+        if (waiting) return;
+        waiting = true;
+        setTimeout(() => {
+            fn.apply(this, args);
+            waiting = false;
+        }, ms);
+    };
+}
+
+// Escapa un valor para usarlo dentro de `url('...')` en CSS.
+function escapeCssUrl(url) {
+    return String(url).replace(/['"\\()\s]/g, (ch) => ch === ' ' ? '%20' : encodeURIComponent(ch));
+}
+
+// ---------- Toast / Notificaciones ----------
+
 function showToast(message, type = 'success') {
     // Crear contenedor si no existe
     let container = document.querySelector('.toast-container');
@@ -12,21 +52,29 @@ function showToast(message, type = 'success') {
         container.className = 'toast-container';
         document.body.appendChild(container);
     }
-    const icon = type === 'success' ? '✓' : '✕';
+
     const toast = document.createElement('div');
     toast.className = `toast toast-${type}`;
     toast.setAttribute('role', type === 'success' ? 'status' : 'alert');
-    toast.innerHTML = `
-        <span class="toast-icon">${icon}</span>
-        <span>${message}</span>
-        <button class="toast-close" aria-label="Cerrar notificación">&times;</button>
-    `;
+
+    const iconSpan = document.createElement('span');
+    iconSpan.className = 'toast-icon';
+    iconSpan.textContent = type === 'success' ? '✓' : '✕';
+
+    const msgSpan = document.createElement('span');
+    msgSpan.textContent = message; // textContent: evita inyección HTML
+
+    const closeBtn = document.createElement('button');
+    closeBtn.className = 'toast-close';
+    closeBtn.setAttribute('aria-label', 'Cerrar notificación');
+    closeBtn.textContent = '×';
 
     // Botón cerrar manual
-    toast.querySelector('.toast-close').addEventListener('click', () => {
-        removeToast(toast);
-    });
+    closeBtn.addEventListener('click', () => removeToast(toast));
 
+    toast.appendChild(iconSpan);
+    toast.appendChild(msgSpan);
+    toast.appendChild(closeBtn);
     container.appendChild(toast);
 
     // Auto-eliminar después de 4.5s

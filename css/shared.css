@@ -476,6 +476,44 @@ footer a svg {
 }
 
 /* ==========================================================
+   ACCESIBILIDAD GLOBAL
+   ========================================================== */
+
+/* Skip to content (enlace para saltar al contenido principal) */
+.skip-link {
+    position: absolute;
+    top: -60px;
+    left: 1rem;
+    background: #92400e;
+    color: white;
+    padding: 0.75rem 1.25rem;
+    border-radius: 0.5rem;
+    z-index: 9999;
+    text-decoration: none;
+    font-weight: 600;
+    transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+    top: 1rem;
+}
+
+/* Respetar preferencias de movimiento reducido (WCAG 2.3.3) */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* ==========================================================
    MENÚ HAMBURGUESA (móvil)
    ========================================================== */
 .menu-toggle {

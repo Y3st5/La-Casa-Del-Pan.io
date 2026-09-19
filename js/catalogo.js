@@ -17,6 +17,13 @@ const CATEGORIAS = {
     }
 };
 
+// Números de contacto para WhatsApp (declarados al inicio: evita TDZ)
+const numeroWilliams = 51998956056;
+const numeroJuan = 51942853549;
+
+// Escape HTML compartido (shared.js) con respaldo defensivo
+const esc = window.escapeHtml || ((text) => String(text == null ? '' : text));
+
 // Cargar productos desde JSON
 async function cargarProductos() {
     const container = document.getElementById('productsContainer');
@@ -86,20 +93,20 @@ function renderizarProductos(productos) {
 // Generar HTML de una tarjeta de producto
 function generarTarjetaProducto(p) {
     const estrellas = generarEstrellas(p.rating);
-    const badgeHtml = p.badge ? `<span class="product-badge ${p.badge}">${p.badge === 'popular' ? 'Popular' : 'Nuevo'}</span>` : '';
-    const nombreCategoria = p.categoria.charAt(0).toUpperCase() + p.categoria.slice(1);
+    const badgeHtml = p.badge ? `<span class="product-badge ${esc(p.badge)}">${p.badge === 'popular' ? 'Popular' : 'Nuevo'}</span>` : '';
+    const nombreCategoria = String(p.categoria).charAt(0).toUpperCase() + String(p.categoria).slice(1);
 
     return `
-        <div class="product-card" data-category="${p.categoria}">
-            <div class="product-image lazy" data-src="${p.imagen_url}" style="background-color: var(--lazy-bg, #f3e8d6);">
+        <div class="product-card" data-category="${esc(p.categoria)}">
+            <div class="product-image lazy" data-src="${esc(p.imagen_url)}" style="background-color: var(--lazy-bg, #f3e8d6);">
                 ${badgeHtml}
             </div>
             <div class="product-content">
-                <div class="product-category">${nombreCategoria}</div>
-                <h4 class="product-title">${p.nombre}</h4>
-                <p class="product-description">${p.descripcion}</p>
+                <div class="product-category">${esc(nombreCategoria)}</div>
+                <h4 class="product-title">${esc(p.nombre)}</h4>
+                <p class="product-description">${esc(p.descripcion)}</p>
                 <div class="product-details">
-                    <div class="product-price">${p.precio_display}</div>
+                    <div class="product-price">${esc(p.precio_display)}</div>
                     <div class="product-rating">
                         ${estrellas}
                         <span class="rating-text">(${p.rating})</span>
@@ -108,10 +115,10 @@ function generarTarjetaProducto(p) {
                 <div class="product-actions">
                     <button class="btn btn-primary add-to-cart"
                         data-id="${p.id}"
-                        data-name="${p.nombre}"
+                        data-name="${esc(p.nombre)}"
                         data-price="${p.precio}"
-                        data-price-display="${p.precio_display}"
-                        data-image="${p.imagen_url}">
+                        data-price-display="${esc(p.precio_display)}"
+                        data-image="${esc(p.imagen_url)}">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="btn-emoji" aria-hidden="true"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
                         Agregar al Carrito
                     </button>
@@ -226,16 +233,27 @@ function animarTarjetasProgresivas() {
 const menuToggle = document.getElementById('menuToggle');
 const mainNav = document.getElementById('mainNav');
 if (menuToggle && mainNav) {
+    const setMenuState = (open) => {
+        mainNav.classList.toggle('open', open);
+        menuToggle.classList.toggle('open', open);
+        menuToggle.setAttribute('aria-expanded', String(open));
+        menuToggle.setAttribute('aria-label', open ? 'Cerrar menú' : 'Abrir menú');
+    };
+    menuToggle.setAttribute('aria-expanded', 'false');
+    menuToggle.setAttribute('aria-controls', 'mainNav');
     menuToggle.addEventListener('click', () => {
-        mainNav.classList.toggle('open');
-        menuToggle.classList.toggle('open');
+        setMenuState(!mainNav.classList.contains('open'));
     });
     // Cerrar menú al hacer clic en un enlace
     mainNav.querySelectorAll('a').forEach(link => {
-        link.addEventListener('click', () => {
-            mainNav.classList.remove('open');
-            menuToggle.classList.remove('open');
-        });
+        link.addEventListener('click', () => setMenuState(false));
+    });
+    // Cerrar con Escape y devolver foco
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mainNav.classList.contains('open')) {
+            setMenuState(false);
+            menuToggle.focus();
+        }
     });
 }
 // Cart functionality
@@ -342,10 +360,11 @@ function updateCartUI() {
         cart.forEach(item => {
             const cartItem = document.createElement('div');
             cartItem.className = 'cart-item';
+            const imgUrl = String(item.image || '').replace(/['"()\\]/g, '');
             cartItem.innerHTML = `
-                <div class="cart-item-image" style="background-image: url('${item.image}')"></div>
+                <div class="cart-item-image" style="background-image: url('${imgUrl}')"></div>
                 <div class="cart-item-details">
-                    <div class="cart-item-name">${item.name}</div>
+                    <div class="cart-item-name">${esc(item.name)}</div>
                     <div class="cart-item-price">S/${item.price.toFixed(2)}</div>
                     <div class="quantity-controls">
                         <button class="quantity-btn" onclick="updateQuantity('${item.id}', ${item.quantity - 1})">-</button>
@@ -492,7 +511,7 @@ function aplicarBusqueda(termino) {
             <div class="no-results">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
                 <h3>Sin resultados</h3>
-                <p>No encontramos productos que coincidan con "${termino}". Intenta con otra búsqueda.</p>
+                <p>No encontramos productos que coincidan con "${esc(termino)}". Intenta con otra búsqueda.</p>
                 <button class="btn btn-primary" id="clearSearchBtn">Ver todos los productos</button>
             </div>
         `;
@@ -609,9 +628,6 @@ function proceedToWhatsApp() {
     const whatsappUrl = `https://wa.me/${numeroWilliams}?text=${encodedMessage}`;
     window.open(whatsappUrl, '_blank');
 }
-//numeros de contacto para WhatsApp
-const numeroWilliams = 51998956056;
-const numeroJuan = 51942853549;
 
 // Checkout button event listener
 const checkoutBtn = document.getElementById('checkoutBtn');
@@ -653,30 +669,28 @@ let currentProduct = null;
 // Open modal with product data
 function openProductModal(card) {
     const imgEl = card.querySelector('.product-image');
+    const addToCartBtn = card.querySelector('.add-to-cart');
+    if (!imgEl || !addToCartBtn) return;
+
     // Si la imagen aún no se cargó (lazy), cargarla antes de abrir el modal
-    if (imgEl && imgEl.classList.contains('lazy')) {
+    if (imgEl.classList.contains('lazy')) {
         cargarImagenLazy(imgEl);
     }
-    // Get product data from card
-    const imageStyle = imgEl.style.backgroundImage;
-    // Fix the URL extraction - remove url("...") wrapper
-    let image = imageStyle.replace(/url\(/g, '').replace(/"/g, '').replace(/\)/g, '');
-    
+
     const category = card.querySelector('.product-category').textContent;
     const title = card.querySelector('.product-title').textContent;
     const description = card.querySelector('.product-description').textContent;
     const priceText = card.querySelector('.product-price').textContent;
     const ratingContainer = card.querySelector('.product-rating');
     const badge = card.querySelector('.product-badge');
-    const addToCartBtn = card.querySelector('.add-to-cart');
-    
+
     // Extract rating
     const stars = ratingContainer.querySelectorAll('.star').length;
     const emptyStars = ratingContainer.querySelectorAll('.star.empty').length;
     const fullStars = stars - emptyStars;
     const ratingText = ratingContainer.querySelector('.rating-text').textContent;
-    
-    // Store current product data
+
+    // Store current product data (datos vienen de data-* del botón, sin parsing frágil)
     currentProduct = {
         id: addToCartBtn.dataset.id,
         name: addToCartBtn.dataset.name,
@@ -684,9 +698,9 @@ function openProductModal(card) {
         priceDisplay: addToCartBtn.dataset.priceDisplay || `S/${parseFloat(addToCartBtn.dataset.price).toFixed(2)}`,
         image: addToCartBtn.dataset.image
     };
-    
+
     // Populate modal
-    modalProductImage.src = image;
+    modalProductImage.src = currentProduct.image;
     modalCategory.textContent = category;
     modalTitle.textContent = title;
     modalDescription.textContent = description;

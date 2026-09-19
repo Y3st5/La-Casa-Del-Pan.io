@@ -7,6 +7,24 @@
     --admin-header-h: 70px;
     --admin-sidebar-w: 280px;
     --table-row-h: 72px;
+    color-scheme: light;
+}
+
+/* .btn-outline (shared.css) está pensado para fondos oscuros (hero).
+   En el admin el fondo es claro: se redefine para mantener contraste. */
+.btn-outline {
+    background: #fffdf7;
+    color: #92400e;
+    border: 2px solid rgba(217, 119, 6, 0.35);
+    backdrop-filter: none;
+}
+
+.btn-outline:hover {
+    background: linear-gradient(135deg, #d97706, #b45309);
+    color: white;
+    border-color: transparent;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(217, 119, 6, 0.3);
 }
 
 /* ---------- Layout Base ---------- */
@@ -21,18 +39,31 @@
     transform: translateX(-50%);
     max-width: 1200px;
     z-index: 1000;
-    
+
     /* CAMBIO: Usar min-height en lugar de una variable fija que lo aplasta */
-    height: auto; 
-    min-height: 4.5rem; 
+    height: auto;
+    min-height: 4.5rem;
     border-radius: 1rem;
+
+    /* Centrar verticalmente el contenido dentro de la píldora:
+       con height:auto el bloque hijo quedaba pegado arriba. */
+    display: flex;
+    align-items: center;
+}
+
+/* El contenedor interior debe ocupar todo el ancho de la píldora
+   para que el logo (izquierda) y la navegación (derecha) queden
+   separados como antes y no agrupados al centro. */
+.admin-header > .container {
+    flex: 1;
+    max-width: 1200px;
 }
 
 .admin-header-content {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    height: 100%;
+    width: 100%;
     padding: 0 2rem;
 }
 
@@ -1026,6 +1057,21 @@
         opacity: 1;
         transform: translateY(0);
     }
+}
+
+@keyframes fadeInRow {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-row {
+    animation: fadeInRow 0.35s ease-out both;
 }
 
 .stats-grid .stat-card,

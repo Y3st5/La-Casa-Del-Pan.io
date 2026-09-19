@@ -10,13 +10,16 @@ const ADMIN_CONFIG = {
     storageKey: 'lacasadepan_admin_products'
 };
 
+// Escape HTML proviene de shared.js (con fallback defensivo).
+const esc = window.escapeHtml || ((text) => String(text == null ? '' : text));
+
 // Estado global
 let products = [];
 let filteredProducts = [];
 let currentEditId = null;
 let deleteTargetId = null;
 
-// Elementos DOM
+// Elementos DOM (referencias cacheadas: evita querySelector repetido)
 const elements = {
     tableBody: document.getElementById('productsTableBody'),
     productCount: document.getElementById('productCount'),
@@ -52,7 +55,16 @@ const elements = {
     previewDesc: document.getElementById('previewDesc'),
     previewPrice: document.getElementById('previewPrice'),
     previewRating: document.getElementById('previewRating'),
-    previewBadge: document.getElementById('previewBadge')
+    previewBadge: document.getElementById('previewBadge'),
+    // Campos del formulario (para preview en vivo y validación)
+    productName: document.getElementById('productName'),
+    productCategory: document.getElementById('productCategory'),
+    productBadge: document.getElementById('productBadge'),
+    productDescription: document.getElementById('productDescription'),
+    productPrice: document.getElementById('productPrice'),
+    productPriceDisplay: document.getElementById('productPriceDisplay'),
+    productRating: document.getElementById('productRating'),
+    productImage: document.getElementById('productImage')
 };
 
 // Inicialización
@@ -71,11 +83,14 @@ async function loadProducts() {
         // Primero intentar cargar desde localStorage (para edición offline)
         const stored = localStorage.getItem(ADMIN_CONFIG.storageKey);
         if (stored) {
-            products = JSON.parse(stored);
-            return;
+            const parsed = JSON.parse(stored);
+            if (Array.isArray(parsed)) {
+                products = parsed;
+                return;
+            }
         }
 
-        // Si no hay localStorage, cargar desde JSON
+        // Si no hay localStorage (o es inválido), cargar desde JSON
         const response = await fetch(ADMIN_CONFIG.jsonPath);
         if (!response.ok) throw new Error('No se pudo cargar productos.json');
         products = await response.json();
@@ -121,9 +136,9 @@ function applyFilters() {
 
     filteredProducts = products.filter(p => {
         const matchesSearch = !search ||
-            p.nombre.toLowerCase().includes(search) ||
-            p.descripcion.toLowerCase().includes(search) ||
-            p.categoria.toLowerCase().includes(search);
+            (p.nombre || '').toLowerCase().includes(search) ||
+            (p.descripcion || '').toLowerCase().includes(search) ||
+            (p.categoria || '').toLowerCase().includes(search);
 
         const matchesCategory = category === 'todos' || p.categoria === category;
 
@@ -145,23 +160,23 @@ function renderTable() {
         tr.classList.add('fade-in-row');
         tr.innerHTML = `
             <td class="cell-image">
-                <img src="${escapeHtml(product.imagen_url)}" alt="${escapeHtml(product.nombre)}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 24 24\\' fill=\\'none\\' stroke=\\'%23d97706\\' stroke-width=\\'1.5\\'%3E%3Crect x=\\'3\\' y=\\'3\\' width=\\'18\\' height=\\'18\\' rx=\\'2\\'/%3E%3Ccircle cx=\\'8.5\\' cy=\\'8.5\\' r=\\'1.5\\'/%3E%3Cpolyline points=\\'21 15 16 10 5 21\\'/%3E%3C/svg%3E'">
+                <img src="${esc(product.imagen_url)}" alt="${esc(product.nombre)}" loading="lazy" onerror="this.src='data:image/svg+xml,%3Csvg xmlns=\\'http://www.w3.org/2000/svg\\' viewBox=\\'0 0 24 24\\' fill=\\'none\\' stroke=\\'%23d97706\\' stroke-width=\\'1.5\\'%3E%3Crect x=\\'3\\' y=\\'3\\' width=\\'18\\' height=\\'18\\' rx=\\'2\\'/%3E%3Ccircle cx=\\'8.5\\' cy=\\'8.5\\' r=\\'1.5\\'/%3E%3Cpolyline points=\\'21 15 16 10 5 21\\'/%3E%3C/svg%3E'">
             </td>
-            <td class="cell-name">${escapeHtml(product.nombre)}</td>
-            <td class="cell-category ${escapeHtml(product.categoria)}">${escapeHtml(product.categoria)}</td>
-            <td class="cell-price">${escapeHtml(product.precio_display)}</td>
+            <td class="cell-name">${esc(product.nombre)}</td>
+            <td class="cell-category ${esc(product.categoria)}">${esc(product.categoria)}</td>
+            <td class="cell-price">${esc(product.precio_display)}</td>
             <td class="cell-rating">
                 <div class="stars">${generateStarsHtml(product.rating)}</div>
-                <span class="rating-value">${product.rating.toFixed(1)}</span>
+                <span class="rating-value">${Number(product.rating || 0).toFixed(1)}</span>
             </td>
             <td class="cell-badge">
-                ${product.badge ? `<span class="badge ${escapeHtml(product.badge)}">${escapeHtml(product.badge)}</span>` : ''}
+                ${product.badge ? `<span class="badge ${esc(product.badge)}">${esc(product.badge)}</span>` : ''}
             </td>
             <td class="cell-actions">
-                <button class="action-btn edit" data-id="${product.id}" aria-label="Editar ${escapeHtml(product.nombre)}" title="Editar">
+                <button class="action-btn edit" data-id="${product.id}" aria-label="Editar ${esc(product.nombre)}" title="Editar">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
                 </button>
-                <button class="action-btn delete" data-id="${product.id}" aria-label="Eliminar ${escapeHtml(product.nombre)}" title="Eliminar">
+                <button class="action-btn delete" data-id="${product.id}" aria-label="Eliminar ${esc(product.nombre)}" title="Eliminar">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
                 </button>
             </td>
@@ -169,18 +184,12 @@ function renderTable() {
         tbody.appendChild(tr);
     });
 
-    // Event listeners para botones de acción
-    tbody.querySelectorAll('.action-btn.edit').forEach(btn => {
-        btn.addEventListener('click', () => openEditModal(parseInt(btn.dataset.id)));
-    });
-
-    tbody.querySelectorAll('.action-btn.delete').forEach(btn => {
-        btn.addEventListener('click', () => openDeleteModal(parseInt(btn.dataset.id)));
-    });
+    // Event delegation: los click en los botones de acción se resuelven
+    // por el listener único en tbody (attachEventListeners).
 }
 
 function generateStarsHtml(rating) {
-    const fullStars = Math.round(rating);
+    const fullStars = Math.round(Number(rating) || 0);
     let html = '';
     for (let i = 0; i < 5; i++) {
         html += `<div class="star ${i >= fullStars ? 'empty' : ''}"></div>`;
@@ -281,9 +290,9 @@ function openModal() {
     elements.modalOverlay.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
 
-    // Focus first input
+    // Focus al primer campo
     setTimeout(() => {
-        document.getElementById('productName').focus();
+        elements.productName.focus();
     }, 100);
 }
 
@@ -305,14 +314,14 @@ function resetForm() {
 }
 
 function populateForm(product) {
-    document.getElementById('productName').value = product.nombre;
-    document.getElementById('productCategory').value = product.categoria;
-    document.getElementById('productBadge').value = product.badge || '';
-    document.getElementById('productDescription').value = product.descripcion;
-    document.getElementById('productPrice').value = product.precio;
-    document.getElementById('productPriceDisplay').value = product.precio_display;
-    document.getElementById('productRating').value = product.rating;
-    document.getElementById('productImage').value = product.imagen_url;
+    elements.productName.value = product.nombre;
+    elements.productCategory.value = product.categoria;
+    elements.productBadge.value = product.badge || '';
+    elements.productDescription.value = product.descripcion;
+    elements.productPrice.value = product.precio;
+    elements.productPriceDisplay.value = product.precio_display;
+    elements.productRating.value = product.rating;
+    elements.productImage.value = product.imagen_url;
 
     if (product.imagen_url) {
         elements.previewImg.src = product.imagen_url;
@@ -326,10 +335,8 @@ function populateForm(product) {
 }
 
 // ============================================
-// PREVISUALIZACIÓN EN TIEMPO REAL (optimizada con debounce)
+// PREVISUALIZACIÓN EN TIEMPO REAL (con debounce)
 // ============================================
-let previewDebounceTimer = null;
-
 function updatePreview() {
     const name = elements.productName?.value || 'Nombre del producto';
     const category = elements.productCategory?.value;
@@ -341,10 +348,10 @@ function updatePreview() {
 
     // Solo actualizar si el valor cambió (evita re-renders innecesarios)
     if (elements.previewName.textContent !== name) elements.previewName.textContent = name;
-    
+
     const catText = category ? category.charAt(0).toUpperCase() + category.slice(1) : 'Categoría';
     if (elements.previewCategory.textContent !== catText) elements.previewCategory.textContent = catText;
-    
+
     if (elements.previewDesc.textContent !== desc) elements.previewDesc.textContent = desc;
     if (elements.previewPrice.textContent !== priceDisplay) elements.previewPrice.textContent = priceDisplay;
 
@@ -373,38 +380,11 @@ function updatePreview() {
 
     // Image - solo actualizar si cambió la URL
     const currentBg = elements.previewCardImage.style.backgroundImage;
-    const newBg = imageUrl ? `url('${imageUrl}')` : 'none';
+    const newBg = imageUrl ? `url('${imageUrl.replace(/['"()]/g, '')}')` : 'none';
     if (currentBg !== newBg) {
         elements.previewCardImage.style.backgroundImage = newBg;
     }
 }
-
-function schedulePreviewUpdate() {
-    clearTimeout(previewDebounceTimer);
-    previewDebounceTimer = setTimeout(updatePreview, 80);
-}
-
-// Escuchar cambios en el formulario para preview en vivo (con debounce)
-['productName', 'productCategory', 'productDescription', 'productPriceDisplay', 'productRating', 'productBadge', 'productImage'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) {
-        // input para texto/number con debounce, change para selects (inmediato)
-        el.addEventListener('input', schedulePreviewUpdate);
-        el.addEventListener('change', () => {
-            clearTimeout(previewDebounceTimer);
-            updatePreview();
-        });
-    }
-});
-
-// Referencias directas a elementos para evitar querySelector repetido
-const previewElements = [
-    'productName', 'productCategory', 'productDescription', 
-    'productPriceDisplay', 'productRating', 'productBadge', 'productImage'
-];
-previewElements.forEach(id => {
-    elements[id] = document.getElementById(id);
-});
 
 // ============================================
 // VALIDACIÓN
@@ -413,18 +393,19 @@ function validateForm() {
     clearErrors();
     let isValid = true;
 
-    const fields = {
-        productName: { required: true, message: 'El nombre es obligatorio' },
-        productCategory: { required: true, message: 'Selecciona una categoría' },
-        productDescription: { required: true, message: 'La descripción es obligatoria', minLength: 10 },
-        productPrice: { required: true, type: 'number', min: 0, message: 'Precio inválido' },
-        productPriceDisplay: { required: true, message: 'El precio a mostrar es obligatorio' },
-        productRating: { required: true, type: 'number', min: 0, max: 5, message: 'Rating debe ser entre 0 y 5' },
-        productImage: { required: true, type: 'url', message: 'URL de imagen inválida' }
-    };
+    const fields = [
+        { el: elements.productName, required: true, message: 'El nombre es obligatorio' },
+        { el: elements.productCategory, required: true, message: 'Selecciona una categoría' },
+        { el: elements.productDescription, required: true, message: 'La descripción es obligatoria', minLength: 10 },
+        { el: elements.productPrice, required: true, type: 'number', min: 0, message: 'Precio inválido' },
+        { el: elements.productPriceDisplay, required: true, message: 'El precio a mostrar es obligatorio' },
+        { el: elements.productRating, required: true, type: 'number', min: 0, max: 5, message: 'Rating debe ser entre 0 y 5' },
+        { el: elements.productImage, required: true, type: 'url', message: 'URL de imagen inválida' }
+    ];
 
-    for (const [id, rules] of Object.entries(fields)) {
-        const field = document.getElementById(id);
+    for (const rules of fields) {
+        const field = rules.el;
+        if (!field) continue;
         const value = field.value.trim();
 
         if (rules.required && !value) {
@@ -478,7 +459,7 @@ function clearErrors() {
 // ============================================
 // GUARDAR PRODUCTO
 // ============================================
-elements.productForm.addEventListener('submit', async (e) => {
+function handleFormSubmit(e) {
     e.preventDefault();
 
     if (!validateForm()) {
@@ -493,14 +474,14 @@ elements.productForm.addEventListener('submit', async (e) => {
     setSaving(true);
 
     const formData = {
-        nombre: document.getElementById('productName').value.trim(),
-        categoria: document.getElementById('productCategory').value,
-        badge: document.getElementById('productBadge').value || null,
-        descripcion: document.getElementById('productDescription').value.trim(),
-        precio: parseFloat(document.getElementById('productPrice').value),
-        precio_display: document.getElementById('productPriceDisplay').value.trim(),
-        rating: parseFloat(document.getElementById('productRating').value),
-        imagen_url: document.getElementById('productImage').value.trim()
+        nombre: elements.productName.value.trim(),
+        categoria: elements.productCategory.value,
+        badge: elements.productBadge.value || null,
+        descripcion: elements.productDescription.value.trim(),
+        precio: parseFloat(elements.productPrice.value),
+        precio_display: elements.productPriceDisplay.value.trim(),
+        rating: parseFloat(elements.productRating.value),
+        imagen_url: elements.productImage.value.trim()
     };
 
     try {
@@ -527,7 +508,7 @@ elements.productForm.addEventListener('submit', async (e) => {
     } finally {
         setSaving(false);
     }
-});
+}
 
 function setSaving(isSaving) {
     const btnText = elements.saveBtn.querySelector('.btn-text');
@@ -568,7 +549,7 @@ function closeDeleteModal() {
     deleteTargetId = null;
 }
 
-elements.confirmDeleteBtn.addEventListener('click', () => {
+function confirmDelete() {
     if (deleteTargetId !== null) {
         products = products.filter(p => p.id !== deleteTargetId);
         saveToStorage();
@@ -576,12 +557,12 @@ elements.confirmDeleteBtn.addEventListener('click', () => {
         showToast('Producto eliminado');
     }
     closeDeleteModal();
-});
+}
 
 // ============================================
 // IMPORT / EXPORT
 // ============================================
-elements.exportBtn.addEventListener('click', () => {
+function exportJson() {
     const json = JSON.stringify(products, null, 2);
     const blob = new Blob([json], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
@@ -591,50 +572,81 @@ elements.exportBtn.addEventListener('click', () => {
     a.click();
     URL.revokeObjectURL(url);
     showToast('JSON exportado correctamente');
-});
+}
 
-elements.importBtn.addEventListener('click', () => {
-    elements.importFile.click();
-});
+// Normaliza y valida un array importado:
+// - descarta productos sin datos esenciales
+// - valida categorías contra las permitidas
+// - elimina IDs duplicados (conserva el primero)
+// - acota rating (0-5) y precio (>= 0)
+function sanitizeImportedProducts(list) {
+    const seen = new Set();
+    const valid = [];
 
-elements.importFile.addEventListener('change', async (e) => {
-    const file = e.target.files[0];
-    if (!file) return;
+    for (const item of list) {
+        const id = Number(item.id);
+        if (!Number.isFinite(id) || !item.nombre || !item.categoria) continue;
+        if (typeof item.precio !== 'number' || !Number.isFinite(item.precio)) continue;
+        if (seen.has(id)) continue;
 
-    try {
-        const text = await file.text();
-        const imported = JSON.parse(text);
+        const categoria = ADMIN_CONFIG.categories.includes(item.categoria) ? item.categoria : null;
+        if (!categoria) continue;
 
-        if (!Array.isArray(imported)) {
-            throw new Error('El JSON debe ser un array de productos');
-        }
+        seen.add(id);
 
-        // Validar estructura básica
-        const validProducts = imported.filter(p =>
-            p.id && p.nombre && p.categoria && typeof p.precio === 'number'
-        );
+        const precio = Math.max(0, item.precio);
+        const rating = Math.min(5, Math.max(0, Number(item.rating) || 0));
 
-        if (validProducts.length !== imported.length) {
-            showToast('Algunos productos tienen estructura inválida y fueron omitidos', 'error');
-        }
-
-        products = validProducts;
-        saveToStorage();
-        renderAll();
-        showToast(`${validProducts.length} productos importados`);
-    } catch (error) {
-        console.error('Error importando:', error);
-        showToast('Error al importar: ' + error.message, 'error');
-    } finally {
-        elements.importFile.value = '';
+        valid.push({
+            id,
+            nombre: String(item.nombre).trim(),
+            categoria,
+            descripcion: String(item.descripcion || '').trim(),
+            precio,
+            precio_display: String(item.precio_display || '').trim() || `S/${precio.toFixed(2)}`,
+            rating,
+            badge: ['', 'popular', 'nuevo'].includes(item.badge) ? item.badge : null,
+            imagen_url: String(item.imagen_url || '').trim()
+        });
     }
-});
+
+    return valid;
+}
+
+async function importJsonFromFile(file) {
+    const text = await file.text();
+    const imported = JSON.parse(text);
+
+    if (!Array.isArray(imported)) {
+        throw new Error('El JSON debe ser un array de productos');
+    }
+
+    const validProducts = sanitizeImportedProducts(imported);
+
+    if (validProducts.length !== imported.length) {
+        showToast(
+            `${imported.length - validProducts.length} producto(s) con estructura inválida fueron omitidos (IDs duplicados, categoría no válida o datos incompletos).`,
+            'error'
+        );
+    }
+
+    if (validProducts.length === 0) {
+        showToast('Ningún producto válido en el archivo.', 'error');
+        elements.importFile.value = '';
+        return;
+    }
+
+    products = validProducts;
+    saveToStorage();
+    renderAll();
+    showToast(`${validProducts.length} productos importados`);
+}
 
 // ============================================
 // IMAGEN PREVIEW
 // ============================================
-elements.previewImageBtn.addEventListener('click', () => {
-    const url = document.getElementById('productImage').value.trim();
+function previewExternalImage() {
+    const url = elements.productImage.value.trim();
     if (url) {
         elements.previewImg.src = url;
         elements.imagePreview.hidden = false;
@@ -644,14 +656,14 @@ elements.previewImageBtn.addEventListener('click', () => {
             elements.imagePreview.hidden = true;
         };
     }
-});
+}
 
-elements.removeImageBtn.addEventListener('click', () => {
-    document.getElementById('productImage').value = '';
+function removeImage() {
+    elements.productImage.value = '';
     elements.imagePreview.hidden = true;
     elements.previewImg.src = '';
     updatePreview();
-});
+}
 
 // ============================================
 // EVENT LISTENERS
@@ -665,47 +677,85 @@ function attachEventListeners() {
     elements.modalClose.addEventListener('click', closeModal);
     elements.modalOverlay.addEventListener('click', closeModal);
     elements.cancelBtn.addEventListener('click', closeModal);
-
     elements.cancelDeleteBtn.addEventListener('click', closeDeleteModal);
     elements.deleteModalOverlay.addEventListener('click', closeDeleteModal);
 
-    // Escape key
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            if (elements.productModal.classList.contains('active')) closeModal();
-            if (elements.deleteModal.classList.contains('active')) closeDeleteModal();
+    // Guardar / eliminar
+    elements.productForm.addEventListener('submit', handleFormSubmit);
+    elements.confirmDeleteBtn.addEventListener('click', confirmDelete);
+
+    // Import / Export
+    elements.exportBtn.addEventListener('click', exportJson);
+    elements.importBtn.addEventListener('click', () => elements.importFile.click());
+    elements.importFile.addEventListener('change', async (e) => {
+        const file = e.target.files[0];
+        if (!file) return;
+        try {
+            await importJsonFromFile(file);
+        } catch (error) {
+            console.error('Error importando:', error);
+            showToast('Error al importar: ' + error.message, 'error');
+        } finally {
+            elements.importFile.value = '';
         }
     });
 
-    // Filtros
-    let searchTimer = null;
-    elements.searchInput.addEventListener('input', () => {
-        clearTimeout(searchTimer);
-        searchTimer = setTimeout(() => {
-            renderAll();
-        }, 150);
+    // Imagen preview
+    elements.previewImageBtn.addEventListener('click', previewExternalImage);
+    elements.removeImageBtn.addEventListener('click', removeImage);
+
+    // Escape key cierra modales (en este orden: producto, luego eliminar)
+    document.addEventListener('keydown', (e) => {
+        if (e.key !== 'Escape') return;
+        if (elements.productModal.classList.contains('active')) {
+            closeModal();
+        } else if (elements.deleteModal.classList.contains('active')) {
+            closeDeleteModal();
+        }
     });
 
+    // Filtros con debounce
+    const searchDebounced = debounce(() => renderAll(), 150);
+    elements.searchInput.addEventListener('input', searchDebounced);
     elements.categoryFilter.addEventListener('change', renderAll);
+
+    // Event delegation para acciones de fila (un solo listener global)
+    elements.tableBody.addEventListener('click', (e) => {
+        const btn = e.target.closest('.action-btn');
+        if (!btn || !elements.tableBody.contains(btn)) return;
+        const id = parseInt(btn.dataset.id, 10);
+        if (!Number.isFinite(id)) return;
+
+        if (btn.classList.contains('edit')) {
+            openEditModal(id);
+        } else if (btn.classList.contains('delete')) {
+            openDeleteModal(id);
+        }
+    });
+
+    // Preview en vivo con debounce (input) y cambio inmediato (selects)
+    const previewDebounced = debounce(updatePreview, 80);
+    const previewInputs = [
+        elements.productName,
+        elements.productDescription,
+        elements.productPriceDisplay,
+        elements.productRating,
+        elements.productImage
+    ];
+    const previewSelects = [elements.productCategory, elements.productBadge];
+
+    previewInputs.forEach(el => el && el.addEventListener('input', previewDebounced));
+    previewSelects.forEach(el => el && el.addEventListener('change', updatePreview));
 }
 
 // ============================================
-// UTILIDADES
+// API DE DEBUG (consola)
 // ============================================
-function escapeHtml(text) {
-    const div = document.createElement('div');
-    div.textContent = text;
-    return div.innerHTML;
-}
-
-// Toast usa la función global de shared.js
-
-// Exponer funciones globales para debugging
 window.adminPanel = {
     getProducts: () => products,
     exportJson: () => JSON.stringify(products, null, 2),
     importJson: (json) => {
-        products = JSON.parse(json);
+        products = sanitizeImportedProducts(JSON.parse(json));
         saveToStorage();
         renderAll();
     },
